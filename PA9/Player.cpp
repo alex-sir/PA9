@@ -3,10 +3,16 @@
     Class: CptS 122, Spring 2021; Lab Section 03
     Programming Assignment: Programming Assignment 9
     Date: April 22, 2021
-    Description: SquareN
+    Description: NSquare
 */
 
 #include "Player.h"
+
+Player::Player()
+{
+    this->setSize(sf::Vector2f(20.0f, 20.0f));
+    this->setFillColor(sf::Color::Black);
+}
 
 /*
     Function: move()

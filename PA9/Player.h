@@ -3,7 +3,7 @@
     Class: CptS 122, Spring 2021; Lab Section 03
     Programming Assignment: Programming Assignment 9
     Date: April 22, 2021
-    Description: SquareN
+    Description: NSquare
 */
 
 #pragma once
@@ -13,11 +13,7 @@
 class Player : public sf::RectangleShape
 {
 public:
-    Player(const sf::Vector2f& size, const sf::Vector2f& pos) : sf::RectangleShape(size)
-	{
-        this->setPosition(pos);
-        this->setFillColor(sf::Color::Black);
-	}
+    Player();
 
     /*
         Function: move()
