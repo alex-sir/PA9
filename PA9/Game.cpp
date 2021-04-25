@@ -12,7 +12,7 @@ Game::Game()
 {
     gameWindow.create(sf::VideoMode(1920, 1080), "NSquare", sf::Style::Default);
     changingMenu = true;
-    nextMenu = "main";
+    menuName = "main";
 }
 
 /*
@@ -76,12 +76,14 @@ void Game::startGame(void)
         changingMenu = false;
     }
 
-    player.move();
-
-    gameWindow.clear(sf::Color(200, 200, 200));
-    gameWindow.draw(player);
-    drawMenuText();
-    gameWindow.display();
+    if (menuName == "main")
+    {
+        gameWindow.clear();
+        drawBackground();
+        drawRectanglesMainMenu();
+        drawMenuText();
+        gameWindow.display();
+    }
 }
 
 /*
@@ -99,15 +101,17 @@ void Game::startGame(void)
 void Game::loadMenu(void)
 {
     // Set the current menu to be the next menu to be displayed
-    if (nextMenu == "main")
+    if (menuName == "main")
     {
         currentMenu = &mainMenu;
-    }
 
-    // Load all the assets for the current menu
-    currentMenu->loadFont();
-    currentMenu->loadText();
-    currentMenu->loadMusic();
+        // Load all the assets
+        currentMenu->loadFont();
+        currentMenu->loadText();
+        currentMenu->loadMusic();
+        currentMenu->loadBackground();
+        currentMenu->loadRectangles();
+    }
 }
 
 /*
@@ -128,5 +132,44 @@ void Game::drawMenuText(void)
     for (int i = 0; i < currentMenu->getMenuText().size(); ++i)
     {
         gameWindow.draw(currentMenu->getMenuText()[i]);
+    }
+}
+
+/*
+    Function: drawBackground()
+    Author: Alex Carbajal
+    Date Created: 04/24/2021
+    Date Last Modified: 04/24/2021
+    Description: Draws the background for the current menu.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The background for the current menu gets draw.
+*/
+void Game::drawBackground(void)
+{
+    gameWindow.draw(currentMenu->getBackground());
+}
+
+/*
+    Function: drawRectanglesMainMenu()
+    Author: Alex Carbajal
+    Date Created: 04/24/2021
+    Date Last Modified: 04/24/2021
+    Description: Draws rectangles on the current menu.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Rectangles are drawn on the current menu.
+*/
+void Game::drawRectanglesMainMenu(void)
+{
+    // Draw all the rectangles for the main menu
+    for (int i = 0; i < currentMenu->getMenuRectangles().size(); ++i)
+    {
+        currentMenu->getMenuRectangles()[i].rotate(0.05f);
+        gameWindow.draw(currentMenu->getMenuRectangles()[i]);
     }
 }

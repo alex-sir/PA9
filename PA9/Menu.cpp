@@ -14,9 +14,19 @@ sf::Font& Menu::getFontRaleway(void)
     return fontRaleway;
 }
 
-std::vector<sf::Text> Menu::getMenuText(void) const
+std::vector<sf::Text>& Menu::getMenuText(void)
 {
     return menuText;
+}
+
+std::vector<sf::RectangleShape>& Menu::getMenuRectangles(void)
+{
+    return menuRectangles;
+}
+
+sf::Sprite Menu::getBackground(void) const
+{
+    return background;
 }
 
 /*

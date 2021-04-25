@@ -43,7 +43,7 @@ private:
     Menu* currentMenu;
     MainMenu mainMenu;
     bool changingMenu; // Whether the game will be changing to another menu
-    std::string nextMenu; // What the next menu to be displayed will be
+    std::string menuName; // The menus name
 
     /*
         Function: startGame()
@@ -86,4 +86,32 @@ private:
         Postconditions: All the text for the current menu is displayed.
     */
     void drawMenuText(void);
+
+    /*
+        Function: drawBackground()
+        Author: Alex Carbajal
+        Date Created: 04/24/2021
+        Date Last Modified: 04/24/2021
+        Description: Draws the background for the current menu.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The background for the current menu gets draw.
+    */
+    void drawBackground(void);
+
+    /*
+        Function: drawRectanglesMainMenu()
+        Author: Alex Carbajal
+        Date Created: 04/24/2021
+        Date Last Modified: 04/24/2021
+        Description: Draws rectangles on the current menu.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: Rectangles are drawn on the current menu.
+    */
+    void drawRectanglesMainMenu(void);
 };

@@ -30,7 +30,9 @@ public:
     // Getters
     // Must return a reference due to the way sf::Text works
     sf::Font& getFontRaleway(void);
-    std::vector<sf::Text> getMenuText(void) const;
+    sf::Sprite getBackground(void) const;
+    std::vector<sf::Text>& getMenuText(void);
+    std::vector<sf::RectangleShape>& getMenuRectangles(void);
 
     /*
         Function: loadFont()
@@ -49,9 +51,13 @@ public:
     virtual void loadBackground(void) = 0;
     virtual void loadMusic(void) = 0;
     virtual void loadText(void) = 0;
+    virtual void loadRectangles(void) = 0;
 protected:
     sf::Font fontRaleway; // The font to be used in the game
     sf::Music music; // Music that will be playing when the user is in the menu
+    sf::Sprite background;
+    sf::Texture backgroundTexture;
     std::vector<sf::Text> menuText; // Dynamic array containing all the text for a menu
+    std::vector<sf::RectangleShape> menuRectangles;
 private:
 };
