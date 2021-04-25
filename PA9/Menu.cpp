@@ -8,3 +8,30 @@
 
 #include "Menu.h"
 
+// Must return a reference due to the way sf::Text works
+sf::Font& Menu::getFontRaleway(void)
+{
+    return fontRaleway;
+}
+
+std::vector<sf::Text> Menu::getMenuText(void) const
+{
+    return menuText;
+}
+
+/*
+    Function: loadFont()
+    Author: Alex Carbajal
+    Date Created: 04/24/2021
+    Date Last Modified: 04/24/2021
+    Description: Loads a font for the menu.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: A font is loaded for the menu.
+*/
+void Menu::loadFont(void)
+{
+    fontRaleway.loadFromFile("Assets/RalewayFont/Raleway-Light.ttf");
+}

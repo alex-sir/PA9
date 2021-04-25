@@ -12,6 +12,7 @@ Player::Player()
 {
     this->setSize(sf::Vector2f(20.0f, 20.0f));
     this->setFillColor(sf::Color::Black);
+    movementSpeed = 1;
 }
 
 /*
@@ -51,7 +52,7 @@ void Player::moveUp(void)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        sf::RectangleShape::move(0, -0.1);
+        sf::RectangleShape::move(0, -movementSpeed);
     }
 }
 
@@ -71,7 +72,7 @@ void Player::moveLeft(void)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        sf::RectangleShape::move(-0.1, 0);
+        sf::RectangleShape::move(-movementSpeed, 0);
     }
 }
 
@@ -91,7 +92,7 @@ void Player::moveDown(void)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        sf::RectangleShape::move(0, 0.1);
+        sf::RectangleShape::move(0, movementSpeed);
     }
 }
 
@@ -111,6 +112,6 @@ void Player::moveRight(void)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        sf::RectangleShape::move(0.1, 0);
+        sf::RectangleShape::move(movementSpeed, 0);
     }
 }

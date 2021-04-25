@@ -29,6 +29,8 @@ public:
     */
     void move(void);
 private:
+    int movementSpeed; // How fast the player moves in the game
+
     /*
         Function: moveUp()
         Author: Alex Carbajal
