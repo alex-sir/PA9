@@ -17,6 +17,7 @@ public:
 	void loadMusic(void);
 	void loadText(void);
 	void loadRectangles(void);
+	void loadMarker(void);
 private:
 	sf::Text gameTitle;
 	sf::Text play;
@@ -96,4 +97,18 @@ private:
 		Postconditions: A rectangle is made.
 	*/
 	void makeRectangle(sf::RectangleShape& r, float size, float rotation, float olThickness, sf::Color olColor);
+
+	/*
+		Function: makeMarker()
+		Author: Alex Carbajal
+		Date Created: 04/25/2021
+		Date Last Modified: 04/25/2021
+		Description: Makes the marker for the main menu.
+		Input parameters: N/A
+		Output parameters: N/A
+		Returns: N/A
+		Preconditions: None
+		Postconditions: The marker for the main menu is made.
+	*/
+	void makeMarker(void);
 };

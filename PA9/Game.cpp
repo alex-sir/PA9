@@ -13,6 +13,9 @@ Game::Game()
     gameWindow.create(sf::VideoMode(1920, 1080), "NSquare", sf::Style::Default);
     changingMenu = true;
     menuName = "main";
+    beepUp.loadFromFile("Assets/Sound/up.flac");
+    beepDown.loadFromFile("Assets/Sound/down.flac");
+    beepSelect.loadFromFile("Assets/Sound/select.flac");
 }
 
 /*
@@ -39,8 +42,6 @@ void Game::runGame(void)
 
     while (gameWindow.isOpen())
     {
-        sf::Event event;
-
         while (gameWindow.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
@@ -80,8 +81,9 @@ void Game::startGame(void)
     {
         gameWindow.clear();
         drawBackground();
-        drawRectanglesMainMenu();
         drawMenuText();
+        drawRectangleArtMainMenu();
+        drawMarker();
         gameWindow.display();
     }
 }
@@ -111,6 +113,7 @@ void Game::loadMenu(void)
         currentMenu->loadMusic();
         currentMenu->loadBackground();
         currentMenu->loadRectangles();
+        currentMenu->loadMarker();
     }
 }
 
@@ -153,23 +156,97 @@ void Game::drawBackground(void)
 }
 
 /*
-    Function: drawRectanglesMainMenu()
+    Function: drawRectangleArtMainMenu()
     Author: Alex Carbajal
     Date Created: 04/24/2021
-    Date Last Modified: 04/24/2021
-    Description: Draws rectangles on the current menu.
+    Date Last Modified: 04/25/2021
+    Description: Draws rectangle art on the main menu.
     Input parameters: N/A
     Output parameters: N/A
     Returns: N/A
     Preconditions: None
-    Postconditions: Rectangles are drawn on the current menu.
+    Postconditions: Rectangle art is drawn on the main menu.
 */
-void Game::drawRectanglesMainMenu(void)
+void Game::drawRectangleArtMainMenu(void)
 {
     // Draw all the rectangles for the main menu
     for (int i = 0; i < currentMenu->getMenuRectangles().size(); ++i)
     {
         currentMenu->getMenuRectangles()[i].rotate(0.05f);
         gameWindow.draw(currentMenu->getMenuRectangles()[i]);
+    }
+}
+
+/*
+    Function: drawMarker()
+    Author: Alex Carbajal
+    Date Created: 04/25/2021
+    Date Last Modified: 04/25/2021
+    Description: Draws the marker on the menu.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Marker is drawn on the menu.
+*/
+void Game::drawMarker(void)
+{
+    markerMovementMainMenu();
+    gameWindow.draw(currentMenu->getMarker());
+}
+
+/*
+    Function: markerMovementMainMenu()
+    Author: Alex Carbajal
+    Date Created: 04/25/2021
+    Date Last Modified: 04/25/2021
+    Description: Allows for marker movement on the main menu.
+                 Plays sounds for the marker.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Marker movement is allowed on the main menu.
+*/
+void Game::markerMovementMainMenu(void)
+{
+    while (gameWindow.pollEvent(event))
+    {
+        // A key press
+        if (event.type == sf::Event::KeyPressed)
+        {
+            // Marker goes down when 'S' is pressed
+            if ((event.key.code == sf::Keyboard::S) &&
+                currentMenu->getMarkerPosition() < currentMenu->getMaxMarkerPosition())
+            {
+                currentMenu->getMarker().setPosition(sf::Vector2f(25.f,
+                    currentMenu->getMarker().getPosition().y + 97.f));
+
+                beep.setBuffer(beepDown);
+                beep.play();
+
+                currentMenu->setMarkerPosition(currentMenu->getMarkerPosition() + 1);
+            }
+
+            // Marker goes up when 'W' is pressed
+            if ((event.key.code == sf::Keyboard::W) &&
+                currentMenu->getMarkerPosition() > currentMenu->getMinMarkerPosition())
+            {
+                currentMenu->getMarker().setPosition(sf::Vector2f(25.f,
+                    currentMenu->getMarker().getPosition().y - 97.f));
+
+                beep.setBuffer(beepUp);
+                beep.play();
+
+                currentMenu->setMarkerPosition(currentMenu->getMarkerPosition() - 1);
+            }
+
+            // Select a menu option ('Enter')
+            if (event.key.code == sf::Keyboard::Enter)
+            {
+                beep.setBuffer(beepSelect);
+                beep.play();
+            }
+        }
     }
 }

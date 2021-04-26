@@ -39,11 +39,16 @@ public:
     void runGame(void);
 private:
     sf::RenderWindow gameWindow;
+    sf::Event event;
     Player player;
     Menu* currentMenu;
     MainMenu mainMenu;
     bool changingMenu; // Whether the game will be changing to another menu
     std::string menuName; // The menus name
+    sf::Sound beep; // Blip sound in the menu
+    sf::SoundBuffer beepUp;
+    sf::SoundBuffer beepDown;
+    sf::SoundBuffer beepSelect;
 
     /*
         Function: startGame()
@@ -102,16 +107,45 @@ private:
     void drawBackground(void);
 
     /*
-        Function: drawRectanglesMainMenu()
+        Function: drawRectangleArtMainMenu()
         Author: Alex Carbajal
         Date Created: 04/24/2021
-        Date Last Modified: 04/24/2021
-        Description: Draws rectangles on the current menu.
+        Date Last Modified: 04/25/2021
+        Description: Draws rectangle art on the main menu.
         Input parameters: N/A
         Output parameters: N/A
         Returns: N/A
         Preconditions: None
-        Postconditions: Rectangles are drawn on the current menu.
+        Postconditions: Rectangle art is drawn on the main menu.
     */
-    void drawRectanglesMainMenu(void);
+    void drawRectangleArtMainMenu(void);
+
+    /*
+        Function: drawMarker()
+        Author: Alex Carbajal
+        Date Created: 04/25/2021
+        Date Last Modified: 04/25/2021
+        Description: Draws the marker on the menu.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: Marker is drawn on the menu.
+    */
+    void drawMarker(void);
+
+    /*
+        Function: markerMovementMainMenu()
+        Author: Alex Carbajal
+        Date Created: 04/25/2021
+        Date Last Modified: 04/25/2021
+        Description: Allows for marker movement on the main menu.
+                     Plays sounds for the marker.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: Marker movement is allowed on the main menu.
+    */
+    void markerMovementMainMenu(void);
 };

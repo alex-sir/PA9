@@ -172,3 +172,37 @@ void MainMenu::makeExitText(void)
     // Adding the text to the list of texts
     menuText.push_back(exit);
 }
+
+void MainMenu::loadMarker(void)
+{
+    makeMarker();
+
+    // Marker positions
+    markerPosition = minMarkerPosition = 1;
+    maxMarkerPosition = 3;
+}
+
+/*
+    Function: makeMarker()
+    Author: Alex Carbajal
+    Date Created: 04/25/2021
+    Date Last Modified: 04/25/2021
+    Description: Makes the marker for the main menu.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The marker for the main menu is made.
+*/
+void MainMenu::makeMarker(void)
+{
+    float size = 25.f;
+
+    marker.setSize(sf::Vector2f(size, size));
+    marker.setOrigin(size / 2, size / 2);
+    marker.setPosition(25.f, 195.f);
+    marker.setFillColor(sf::Color::Black);
+    marker.setOutlineThickness(1.f);
+    marker.setOutlineColor(sf::Color(255, 165, 0)); // Orange
+    marker.setRotation(45);
+}

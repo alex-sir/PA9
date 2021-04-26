@@ -14,6 +14,11 @@ sf::Font& Menu::getFontRaleway(void)
     return fontRaleway;
 }
 
+sf::Sprite& Menu::getBackground(void)
+{
+    return background;
+}
+
 std::vector<sf::Text>& Menu::getMenuText(void)
 {
     return menuText;
@@ -24,9 +29,29 @@ std::vector<sf::RectangleShape>& Menu::getMenuRectangles(void)
     return menuRectangles;
 }
 
-sf::Sprite Menu::getBackground(void) const
+sf::RectangleShape& Menu::getMarker(void)
 {
-    return background;
+    return marker;
+}
+
+int Menu::getMarkerPosition(void)
+{
+    return markerPosition;
+}
+
+int Menu::getMinMarkerPosition(void)
+{
+    return minMarkerPosition;
+}
+
+int Menu::getMaxMarkerPosition(void)
+{
+    return maxMarkerPosition;
+}
+
+void Menu::setMarkerPosition(int newMarkerPosition)
+{
+    markerPosition = newMarkerPosition;
 }
 
 /*

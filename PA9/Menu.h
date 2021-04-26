@@ -16,10 +16,7 @@
 /* Menu Types
     MainMenu
     Play
-        World1
-        World2
-        World3
-        PauseMenu (?)
+        PauseMenu
     Instructions
     Credits
 */
@@ -30,9 +27,16 @@ public:
     // Getters
     // Must return a reference due to the way sf::Text works
     sf::Font& getFontRaleway(void);
-    sf::Sprite getBackground(void) const;
+    sf::Sprite& getBackground(void);
     std::vector<sf::Text>& getMenuText(void);
     std::vector<sf::RectangleShape>& getMenuRectangles(void);
+    sf::RectangleShape& getMarker(void);
+    int getMarkerPosition(void);
+    int getMinMarkerPosition(void);
+    int getMaxMarkerPosition(void);
+
+    // Setters
+    void setMarkerPosition(int newMarkerPosition);
 
     /*
         Function: loadFont()
@@ -52,6 +56,7 @@ public:
     virtual void loadMusic(void) = 0;
     virtual void loadText(void) = 0;
     virtual void loadRectangles(void) = 0;
+    virtual void loadMarker(void) = 0;
 protected:
     sf::Font fontRaleway; // The font to be used in the game
     sf::Music music; // Music that will be playing when the user is in the menu
@@ -59,5 +64,9 @@ protected:
     sf::Texture backgroundTexture;
     std::vector<sf::Text> menuText; // Dynamic array containing all the text for a menu
     std::vector<sf::RectangleShape> menuRectangles;
+    sf::RectangleShape marker;
+    int markerPosition;
+    int minMarkerPosition;
+    int maxMarkerPosition;
 private:
 };
