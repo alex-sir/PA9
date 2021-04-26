@@ -3,14 +3,14 @@
     Class: CptS 122, Spring 2021; Lab Section 03
     Programming Assignment: Programming Assignment 9
     Date: April 22, 2021
-    Description: NSquare
+    Description: Square Lanes
 */
 
 #include "Game.h"
 
 Game::Game()
 {
-    gameWindow.create(sf::VideoMode(1920, 1080), "NSquare", sf::Style::Default);
+    gameWindow.create(sf::VideoMode(1920, 1080), "Square Lanes", sf::Style::Default);
     changingMenu = true;
     menuName = "main";
     beepUp.loadFromFile("Assets/Sound/up.flac");

@@ -3,7 +3,7 @@
     Class: CptS 122, Spring 2021; Lab Section 03
     Programming Assignment: Programming Assignment 9
     Date: April 22, 2021
-    Description: NSquare
+    Description: Square Lanes
 */
 
 #include "MainMenu.h"
@@ -89,7 +89,7 @@ void MainMenu::makeGameTitle(void)
 {
     // Setting all the properties for the title
     gameTitle.setFont(getFontRaleway());
-    gameTitle.setString("NSquare");
+    gameTitle.setString("Square Lanes");
     gameTitle.setCharacterSize(100);
     gameTitle.setFillColor(sf::Color(220, 220, 220));
     gameTitle.setPosition(sf::Vector2f(50.0f, 0.0f));
