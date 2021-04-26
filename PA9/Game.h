@@ -78,6 +78,8 @@ private:
     */
     void loadMenu(void);
 
+    void runMenuProcesses(void);
+
     /*
         Function: drawMenuText()
         Author: Alex Carbajal
@@ -121,20 +123,6 @@ private:
     void drawRectangleArtMainMenu(void);
 
     /*
-        Function: drawMarker()
-        Author: Alex Carbajal
-        Date Created: 04/25/2021
-        Date Last Modified: 04/25/2021
-        Description: Draws the marker on the menu.
-        Input parameters: N/A
-        Output parameters: N/A
-        Returns: N/A
-        Preconditions: None
-        Postconditions: Marker is drawn on the menu.
-    */
-    void drawMarker(void);
-
-    /*
         Function: markerMovementMainMenu()
         Author: Alex Carbajal
         Date Created: 04/25/2021
@@ -148,4 +136,19 @@ private:
         Postconditions: Marker movement is allowed on the main menu.
     */
     void markerMovementMainMenu(void);
+
+    /*
+        Function: selectMainMenuOption()
+        Author: Alex Carbajal
+        Date Created: 04/25/2021
+        Date Last Modified: 04/25/2021
+        Description: Allows for selection of a main menu option.
+                     Plays sounds for the selection.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: Selection of a main menu option is allowed.
+    */
+    void selectMainMenuOption(void);
 };

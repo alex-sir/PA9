@@ -42,17 +42,15 @@ void Game::runGame(void)
 
     while (gameWindow.isOpen())
     {
+        startGame();
+
         while (gameWindow.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 gameWindow.close();
 
-            // You can exit the game using the escape key. Will later be changed to pause the game.
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                gameWindow.close();
+            runMenuProcesses();
         }
-
-        startGame();
     }
 }
 
@@ -77,13 +75,14 @@ void Game::startGame(void)
         changingMenu = false;
     }
 
+    // Menu is main
     if (menuName == "main")
     {
         gameWindow.clear();
         drawBackground();
         drawMenuText();
         drawRectangleArtMainMenu();
-        drawMarker();
+        gameWindow.draw(currentMenu->getMarker());
         gameWindow.display();
     }
 }
@@ -114,6 +113,15 @@ void Game::loadMenu(void)
         currentMenu->loadBackground();
         currentMenu->loadRectangles();
         currentMenu->loadMarker();
+    }
+}
+
+void Game::runMenuProcesses(void)
+{
+    if (menuName == "main")
+    {
+        markerMovementMainMenu();
+        selectMainMenuOption();
     }
 }
 
@@ -178,24 +186,6 @@ void Game::drawRectangleArtMainMenu(void)
 }
 
 /*
-    Function: drawMarker()
-    Author: Alex Carbajal
-    Date Created: 04/25/2021
-    Date Last Modified: 04/25/2021
-    Description: Draws the marker on the menu.
-    Input parameters: N/A
-    Output parameters: N/A
-    Returns: N/A
-    Preconditions: None
-    Postconditions: Marker is drawn on the menu.
-*/
-void Game::drawMarker(void)
-{
-    markerMovementMainMenu();
-    gameWindow.draw(currentMenu->getMarker());
-}
-
-/*
     Function: markerMovementMainMenu()
     Author: Alex Carbajal
     Date Created: 04/25/2021
@@ -210,43 +200,73 @@ void Game::drawMarker(void)
 */
 void Game::markerMovementMainMenu(void)
 {
-    while (gameWindow.pollEvent(event))
+    // A key press
+    if (event.type == sf::Event::KeyPressed)
     {
-        // A key press
-        if (event.type == sf::Event::KeyPressed)
+        // Marker goes down when 'S' is pressed
+        if ((event.key.code == sf::Keyboard::S) &&
+            currentMenu->getMarkerPosition() < currentMenu->getMaxMarkerPosition())
         {
-            // Marker goes down when 'S' is pressed
-            if ((event.key.code == sf::Keyboard::S) &&
-                currentMenu->getMarkerPosition() < currentMenu->getMaxMarkerPosition())
+            currentMenu->getMarker().setPosition(sf::Vector2f(25.f,
+                currentMenu->getMarker().getPosition().y + 97.f));
+
+            beep.setBuffer(beepDown);
+            beep.play();
+
+            currentMenu->setMarkerPosition(currentMenu->getMarkerPosition() + 1);
+        }
+
+        // Marker goes up when 'W' is pressed
+        if ((event.key.code == sf::Keyboard::W) &&
+            currentMenu->getMarkerPosition() > currentMenu->getMinMarkerPosition())
+        {
+            currentMenu->getMarker().setPosition(sf::Vector2f(25.f,
+                currentMenu->getMarker().getPosition().y - 97.f));
+
+            beep.setBuffer(beepUp);
+            beep.play();
+
+            currentMenu->setMarkerPosition(currentMenu->getMarkerPosition() - 1);
+        }
+    }
+}
+
+/*
+    Function: selectMainMenuOption()
+    Author: Alex Carbajal
+    Date Created: 04/25/2021
+    Date Last Modified: 04/25/2021
+    Description: Allows for selection of a main menu option.
+                 Plays sounds for the selection.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Selection of a main menu option is allowed.
+*/
+void Game::selectMainMenuOption(void)
+{
+    if (event.type == sf::Event::KeyPressed)
+    {
+        // Select a menu option ('Enter')
+        if (event.key.code == sf::Keyboard::Enter)
+        {
+            switch (currentMenu->getMarkerPosition())
             {
-                currentMenu->getMarker().setPosition(sf::Vector2f(25.f,
-                    currentMenu->getMarker().getPosition().y + 97.f));
-
-                beep.setBuffer(beepDown);
-                beep.play();
-
-                currentMenu->setMarkerPosition(currentMenu->getMarkerPosition() + 1);
+            case 1: // Play
+                break;
+            case 2: // Instructions
+                break;
+            case 3: // Exit
+                gameWindow.close();
+                break;
+            default:
+                std::cout << "Error: Invalid marker position in main menu" << std::endl;
+                break;
             }
 
-            // Marker goes up when 'W' is pressed
-            if ((event.key.code == sf::Keyboard::W) &&
-                currentMenu->getMarkerPosition() > currentMenu->getMinMarkerPosition())
-            {
-                currentMenu->getMarker().setPosition(sf::Vector2f(25.f,
-                    currentMenu->getMarker().getPosition().y - 97.f));
-
-                beep.setBuffer(beepUp);
-                beep.play();
-
-                currentMenu->setMarkerPosition(currentMenu->getMarkerPosition() - 1);
-            }
-
-            // Select a menu option ('Enter')
-            if (event.key.code == sf::Keyboard::Enter)
-            {
-                beep.setBuffer(beepSelect);
-                beep.play();
-            }
+            beep.setBuffer(beepSelect);
+            beep.play();
         }
     }
 }
