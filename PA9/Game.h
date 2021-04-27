@@ -197,4 +197,32 @@ private:
         Postconditions: The lanes for the game are drawn.
 `   */
     void drawLanes(void);
+
+    /*
+        Function: drawPlayer()
+        Author: Alex Carbajal
+        Date Created: 04/27/2021
+        Date Last Modified: 04/27/2021
+        Description: Draws the player in the game.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The player is drawn in the game.
+    */
+    void drawPlayer(void);
+
+    /*
+        Function: runPlayProcesses()
+        Author: Alex Carbajal
+        Date Created: 04/27/2021
+        Date Last Modified: 04/27/2021
+        Description: Runs processes relating to playing the game.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: Processes relating to playing the game run.
+    */
+    void runPlayProcesses(void);
 };

@@ -21,6 +21,7 @@ public:
     // Getters
     sf::Sprite& getBackground(void);
     std::vector<sf::RectangleShape>& getLanes(void);
+    Player& getPlayer(void);
 
     void loadMusic(void);
 

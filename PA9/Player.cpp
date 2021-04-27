@@ -12,34 +12,19 @@ Player::Player()
 {
     this->setSize(sf::Vector2f(200.0f, 200.0f));
     this->setFillColor(sf::Color::Black);
+    this->setOrigin(this->getSize().x / 2, this->getSize().y / 2);
     laneNumPosition = rand() % 4 + 1;
+    maxLanePosition = 4;
+    minLanePosition = 1;
     health = 1;
-}
-
-/*
-    Function: move()
-    Author: Alex Carbajal
-    Date Created: 04/22/2021
-    Date Last Modified: 04/22/2021
-    Description: Allows the player to move using keyboard inputs (WASD).
-    Input parameters: N/A
-    Output parameters: N/A
-    Returns: N/A
-    Preconditions: None
-    Postconditions: The player can move using keyboard inputs (WASD).
-*/
-void Player::move(void)
-{
-    // AD
-    this->moveLeft();
-    this->moveRight();
+    spawnLocation();
 }
 
 /*
     Function: moveLeft()
     Author: Alex Carbajal
     Date Created: 04/22/2021
-    Date Last Modified: 04/22/2021
+    Date Last Modified: 04/27/2021
     Description: Allows the player to move left.
     Input parameters: N/A
     Output parameters: N/A
@@ -49,9 +34,10 @@ void Player::move(void)
 */
 void Player::moveLeft(void)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    if (laneNumPosition > minLanePosition)
     {
-        //sf::RectangleShape::move(-movementSpeed, 0);
+        this->setPosition(this->getPosition().x - 480.f, this->getPosition().y);
+        laneNumPosition--;
     }
 }
 
@@ -59,34 +45,59 @@ void Player::moveLeft(void)
     Function: moveRight()
     Author: Alex Carbajal
     Date Created: 04/22/2021
-    Date Last Modified: 04/22/2021
-    Description: Allows the player to move right.
+    Date Last Modified: 04/27/2021
+    Description: Allows the player to move right (D).
     Input parameters: N/A
     Output parameters: N/A
     Returns: N/A
     Preconditions: None
-    Postconditions: The player can move right.
+    Postconditions: The player can move right (D).
 */
 void Player::moveRight(void)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if (laneNumPosition < maxLanePosition)
     {
-        //sf::RectangleShape::move(movementSpeed, 0);
+        this->setPosition(this->getPosition().x + 480.f, this->getPosition().y);
+        laneNumPosition++;
     }
 }
 
+/*
+    Function: spawnLocation()
+    Author: Alex Carbajal
+    Date Created: 04/27/2021
+    Date Last Modified: 04/27/2021
+    Description: Spawns the player in a lane that was randomly
+                 chosen.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: Lane number should be 1 - 4.
+    Postconditions: The player is spawned in the lane that was
+                    randomly chosen.
+*/
 void Player::spawnLocation(void)
 {
+    float yPosition = 800.f;
+
+    // Lane sizes in pixels (left to right): 480, 960, 1440, 1920
+    // Midpoint of lanes: 240, 720, 1200, 1680
+    // Intervals of 480 between each midpoint in adjacent lanes
+
+    // Select the lane to put the player in
     switch (laneNumPosition)
     {
     case 1: // First lane
-        this->setPosition(0.f, 0.f);
+        this->setPosition(240.f, yPosition);
         break;
     case 2: // Second lane
+        this->setPosition(720.f, yPosition);
         break;
     case 3: // Third lane
+        this->setPosition(1200.f, yPosition);
         break;
     case 4: // Fourth lane
+        this->setPosition(1680.f, yPosition);
         break;
     default:
         break;

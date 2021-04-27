@@ -57,6 +57,9 @@ void Game::runGame(void)
 
             if (isMenu)
                 runMenuProcesses();
+
+            if (isPlay)
+                runPlayProcesses();
         }
     }
 }
@@ -110,6 +113,7 @@ void Game::startGame(void)
     {
         gameWindow.clear();
         drawBackground(squareLanes.getBackground());
+        drawPlayer();
         drawLanes();
         gameWindow.display();
     }
@@ -364,5 +368,50 @@ void Game::drawLanes(void)
     for (int i = 0; i < squareLanes.getLanes().size(); ++i)
     {
         gameWindow.draw(squareLanes.getLanes()[i]);
+    }
+}
+
+/*
+    Function: drawPlayer()
+    Author: Alex Carbajal
+    Date Created: 04/27/2021
+    Date Last Modified: 04/27/2021
+    Description: Draws the player in the game.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The player is drawn in the game.
+*/
+void Game::drawPlayer(void)
+{
+    gameWindow.draw(squareLanes.getPlayer());
+}
+
+/*
+    Function: runPlayProcesses()
+    Author: Alex Carbajal
+    Date Created: 04/27/2021
+    Date Last Modified: 04/27/2021
+    Description: Runs processes relating to playing the game.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Processes relating to playing the game run.
+*/
+void Game::runPlayProcesses(void)
+{
+    if (event.type == sf::Event::KeyPressed)
+    {
+        if (event.key.code == sf::Keyboard::A)
+        {
+            squareLanes.getPlayer().moveLeft();
+        }
+
+        if (event.key.code == sf::Keyboard::D)
+        {
+            squareLanes.getPlayer().moveRight();
+        }
     }
 }

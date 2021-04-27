@@ -18,6 +18,11 @@ std::vector<sf::RectangleShape>& SquareLanes::getLanes(void)
     return lanes;
 }
 
+Player& SquareLanes::getPlayer(void)
+{
+    return player;
+}
+
 void SquareLanes::loadMusic(void)
 {
     music.openFromFile("Assets/Music/squareLanes.flac");
