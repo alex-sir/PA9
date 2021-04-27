@@ -24,6 +24,10 @@
 class Menu
 {
 public:
+    // Constructor
+    Menu();
+    virtual ~Menu() {}
+
     // Getters
     // Must return a reference due to the way sf::Text works
     sf::Font& getFontRaleway(void);

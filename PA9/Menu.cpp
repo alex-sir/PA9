@@ -8,6 +8,13 @@
 
 #include "Menu.h"
 
+Menu::Menu()
+{
+    markerPosition = 0;
+    minMarkerPosition = 0;
+    maxMarkerPosition = 0;
+}
+
 // Must return a reference due to the way sf::Text works
 sf::Font& Menu::getFontRaleway(void)
 {

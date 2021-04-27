@@ -14,9 +14,10 @@
 #include <SFML\Graphics.hpp>
 #include <SFML\Audio.hpp>
 
-#include "Player.h"
 #include "Menu.h"
 #include "MainMenu.h"
+#include "Instructions.h"
+#include "SquareLanes.h"
 
 class Game
 {
@@ -40,10 +41,12 @@ public:
 private:
     sf::RenderWindow gameWindow;
     sf::Event event;
-    Player player;
     Menu* currentMenu;
-    MainMenu mainMenu;
+    SquareLanes squareLanes;
     bool changingMenu; // Whether the game will be changing to another menu
+    bool changeToPlay; // Whether the game is in the process of changing to play mode
+    bool isMenu;
+    bool isPlay; // Whether the user entered into play mode
     std::string menuName; // The menus name
     sf::Sound beep; // Blip sound in the menu
     sf::SoundBuffer beepUp;
@@ -78,6 +81,21 @@ private:
     */
     void loadMenu(void);
 
+    void loadPlay(void);
+
+    /*
+        Function: runMenuProcesses()
+        Author: Alex Carbajal
+        Date Created: 04/26/2021
+        Date Last Modified: 04/26/2021
+        Description: Runs processes for a menu based on the currently
+                     active menu.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: Processes for the current menu run.
+    */
     void runMenuProcesses(void);
 
     /*
@@ -151,4 +169,6 @@ private:
         Postconditions: Selection of a main menu option is allowed.
     */
     void selectMainMenuOption(void);
+
+    void drawLanes(void);
 };

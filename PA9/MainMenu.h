@@ -10,9 +10,14 @@
 
 #include "Menu.h"
 
+#include <iostream>
+
 class MainMenu : public Menu
 {
 public:
+	MainMenu() : Menu() {}
+	~MainMenu();
+
 	void loadBackground(void);
 	void loadMusic(void);
 	void loadText(void);

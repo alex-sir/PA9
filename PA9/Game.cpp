@@ -12,6 +12,9 @@ Game::Game()
 {
     gameWindow.create(sf::VideoMode(1920, 1080), "Square Lanes", sf::Style::Default);
     changingMenu = true;
+    changeToPlay = false;
+    isMenu = true;
+    isPlay = false;
     menuName = "main";
     beepUp.loadFromFile("Assets/Sound/up.flac");
     beepDown.loadFromFile("Assets/Sound/down.flac");
@@ -40,6 +43,9 @@ void Game::runGame(void)
         (sf::VideoMode::getDesktopMode().width / 2) - (gameWindow.getSize().x / 2),
         (sf::VideoMode::getDesktopMode().height / 2) - (gameWindow.getSize().y / 2) - 45));
 
+    // User can't hold down a key. Not wanted in the gameplay.
+    gameWindow.setKeyRepeatEnabled(false);
+
     while (gameWindow.isOpen())
     {
         startGame();
@@ -49,7 +55,8 @@ void Game::runGame(void)
             if (event.type == sf::Event::Closed)
                 gameWindow.close();
 
-            runMenuProcesses();
+            if (isMenu)
+                runMenuProcesses();
         }
     }
 }
@@ -74,15 +81,35 @@ void Game::startGame(void)
         loadMenu();
         changingMenu = false;
     }
+    else if (changeToPlay)
+    {
+        loadPlay();
+        changeToPlay = false;
+    }
 
-    // Menu is main
-    if (menuName == "main")
+    // Run a menu
+    if (isMenu)
+    {
+        // Menu is main
+        if (menuName == "main")
+        {
+            gameWindow.clear();
+            drawBackground();
+            drawMenuText();
+            drawRectangleArtMainMenu();
+            gameWindow.draw(currentMenu->getMarker());
+            gameWindow.display();
+        }
+        else if (menuName == "instructions") // Menu is instructions
+        {
+            gameWindow.clear();
+            gameWindow.display();
+        }
+    }
+    else if (isPlay) // Play the game
     {
         gameWindow.clear();
-        drawBackground();
-        drawMenuText();
-        drawRectangleArtMainMenu();
-        gameWindow.draw(currentMenu->getMarker());
+        drawLanes();
         gameWindow.display();
     }
 }
@@ -104,7 +131,7 @@ void Game::loadMenu(void)
     // Set the current menu to be the next menu to be displayed
     if (menuName == "main")
     {
-        currentMenu = &mainMenu;
+        currentMenu = new MainMenu;
 
         // Load all the assets
         currentMenu->loadFont();
@@ -114,14 +141,40 @@ void Game::loadMenu(void)
         currentMenu->loadRectangles();
         currentMenu->loadMarker();
     }
+    else if (menuName == "instructions")
+    {
+        //currentMenu = new Instructions;
+    }
 }
 
+void Game::loadPlay(void)
+{
+    squareLanes.loadLanes();
+}
+
+/*
+    Function: runMenuProcesses()
+    Author: Alex Carbajal
+    Date Created: 04/26/2021
+    Date Last Modified: 04/26/2021
+    Description: Runs processes for a menu based on the currently
+                 active menu.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Processes for the current menu run.
+*/
 void Game::runMenuProcesses(void)
 {
     if (menuName == "main")
     {
         markerMovementMainMenu();
         selectMainMenuOption();
+    }
+    else if (menuName == "instructions")
+    {
+
     }
 }
 
@@ -146,6 +199,10 @@ void Game::drawMenuText(void)
     }
 }
 
+/* TODO
+    Pass in object to his function. That way I won't have to write another function for drawing the background for Play.
+    Also do this for some of the other draw functions.
+*/
 /*
     Function: drawBackground()
     Author: Alex Carbajal
@@ -249,13 +306,18 @@ void Game::selectMainMenuOption(void)
     if (event.type == sf::Event::KeyPressed)
     {
         // Select a menu option ('Enter')
-        if (event.key.code == sf::Keyboard::Enter)
+        if (event.key.code == sf::Keyboard::Enter && isMenu)
         {
             switch (currentMenu->getMarkerPosition())
             {
             case 1: // Play
+                changeToPlay = true;
+                isMenu = false;
+                isPlay = true;
                 break;
             case 2: // Instructions
+                changingMenu = true;
+                menuName = "instructions";
                 break;
             case 3: // Exit
                 gameWindow.close();
@@ -267,6 +329,17 @@ void Game::selectMainMenuOption(void)
 
             beep.setBuffer(beepSelect);
             beep.play();
+
+            delete currentMenu;
         }
+    }
+}
+
+void Game::drawLanes(void)
+{
+    // Draw all the lanes
+    for (int i = 0; i < squareLanes.getLanes().size(); ++i)
+    {
+        gameWindow.draw(squareLanes.getLanes()[i]);
     }
 }

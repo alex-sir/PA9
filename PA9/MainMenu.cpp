@@ -8,6 +8,12 @@
 
 #include "MainMenu.h"
 
+MainMenu::~MainMenu()
+{
+    music.setLoop(false);
+    music.stop();
+}
+
 void MainMenu::loadBackground(void)
 {
     backgroundTexture.loadFromFile("Assets/Backgrounds/MainMenuBackground.png");
