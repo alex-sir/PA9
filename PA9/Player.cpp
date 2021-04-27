@@ -10,9 +10,10 @@
 
 Player::Player()
 {
-    this->setSize(sf::Vector2f(20.0f, 20.0f));
+    this->setSize(sf::Vector2f(200.0f, 200.0f));
     this->setFillColor(sf::Color::Black);
-    movementSpeed = 1;
+    laneNumPosition = rand() % 4 + 1;
+    health = 1;
 }
 
 /*
@@ -29,31 +30,9 @@ Player::Player()
 */
 void Player::move(void)
 {
-    // WASD
-    this->moveUp();
+    // AD
     this->moveLeft();
-    this->moveDown();
     this->moveRight();
-}
-
-/*
-    Function: moveUp()
-    Author: Alex Carbajal
-    Date Created: 04/22/2021
-    Date Last Modified: 04/22/2021
-    Description: Allows the player to move upwards.
-    Input parameters: N/A
-    Output parameters: N/A
-    Returns: N/A
-    Preconditions: None
-    Postconditions: The player can move upwards.
-*/
-void Player::moveUp(void)
-{
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        sf::RectangleShape::move(0, -movementSpeed);
-    }
 }
 
 /*
@@ -72,27 +51,7 @@ void Player::moveLeft(void)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        sf::RectangleShape::move(-movementSpeed, 0);
-    }
-}
-
-/*
-    Function: moveDown()
-    Author: Alex Carbajal
-    Date Created: 04/22/2021
-    Date Last Modified: 04/22/2021
-    Description: Allows the player to move downwards.
-    Input parameters: N/A
-    Output parameters: N/A
-    Returns: N/A
-    Preconditions: None
-    Postconditions: The player can move downwards.
-*/
-void Player::moveDown(void)
-{
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        sf::RectangleShape::move(0, movementSpeed);
+        //sf::RectangleShape::move(-movementSpeed, 0);
     }
 }
 
@@ -112,6 +71,24 @@ void Player::moveRight(void)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        sf::RectangleShape::move(movementSpeed, 0);
+        //sf::RectangleShape::move(movementSpeed, 0);
+    }
+}
+
+void Player::spawnLocation(void)
+{
+    switch (laneNumPosition)
+    {
+    case 1: // First lane
+        this->setPosition(0.f, 0.f);
+        break;
+    case 2: // Second lane
+        break;
+    case 3: // Third lane
+        break;
+    case 4: // Fourth lane
+        break;
+    default:
+        break;
     }
 }

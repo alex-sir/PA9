@@ -12,6 +12,8 @@
 
 int main()
 {
+    srand((unsigned int)time(NULL)); // Random seed
+
     Game NSquare;
 
     NSquare.runGame();

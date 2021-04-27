@@ -94,7 +94,7 @@ void Game::startGame(void)
         if (menuName == "main")
         {
             gameWindow.clear();
-            drawBackground();
+            drawBackground(currentMenu->getBackground());
             drawMenuText();
             drawRectangleArtMainMenu();
             gameWindow.draw(currentMenu->getMarker());
@@ -109,6 +109,7 @@ void Game::startGame(void)
     else if (isPlay) // Play the game
     {
         gameWindow.clear();
+        drawBackground(squareLanes.getBackground());
         drawLanes();
         gameWindow.display();
     }
@@ -147,9 +148,23 @@ void Game::loadMenu(void)
     }
 }
 
+/*
+    Function: loadPlay()
+    Author: Alex Carbajal
+    Date Created: 04/26/2021
+    Date Last Modified: 04/26/2021
+    Description: Loads the assets for the game.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The assets for the game are loaded.
+*/
 void Game::loadPlay(void)
 {
+    squareLanes.loadBackground();
     squareLanes.loadLanes();
+    squareLanes.loadMusic();
 }
 
 /*
@@ -199,10 +214,6 @@ void Game::drawMenuText(void)
     }
 }
 
-/* TODO
-    Pass in object to his function. That way I won't have to write another function for drawing the background for Play.
-    Also do this for some of the other draw functions.
-*/
 /*
     Function: drawBackground()
     Author: Alex Carbajal
@@ -215,9 +226,9 @@ void Game::drawMenuText(void)
     Preconditions: None
     Postconditions: The background for the current menu gets draw.
 */
-void Game::drawBackground(void)
+void Game::drawBackground(sf::Sprite& background)
 {
-    gameWindow.draw(currentMenu->getBackground());
+    gameWindow.draw(background);
 }
 
 /*
@@ -335,6 +346,18 @@ void Game::selectMainMenuOption(void)
     }
 }
 
+/*
+    Function: drawLanes()
+    Author: Alex Carbajal
+    Date Created: 04/26/2021
+    Date Last Modified: 04/26/2021
+    Description: Draws the lanes for the game.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The lanes for the game are drawn.
+*/
 void Game::drawLanes(void)
 {
     // Draw all the lanes

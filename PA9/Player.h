@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <stdlib.h>
+
 #include <SFML/Graphics.hpp>
 
 class Player : public sf::RectangleShape
@@ -29,21 +31,8 @@ public:
     */
     void move(void);
 private:
-    int movementSpeed; // How fast the player moves in the game
-
-    /*
-        Function: moveUp()
-        Author: Alex Carbajal
-        Date Created: 04/22/2021
-        Date Last Modified: 04/22/2021
-        Description: Allows the player to move upwards.
-        Input parameters: N/A
-        Output parameters: N/A
-        Returns: N/A
-        Preconditions: None
-        Postconditions: The player can move upwards.
-    */
-    void moveUp(void);
+    int laneNumPosition; // In which lane the player currently resides
+    int health; // The number of hits the player can take before game over
 
     /*
         Function: moveLeft()
@@ -60,20 +49,6 @@ private:
     void moveLeft(void);
 
     /*
-        Function: moveDown()
-        Author: Alex Carbajal
-        Date Created: 04/22/2021
-        Date Last Modified: 04/22/2021
-        Description: Allows the player to move downwards.
-        Input parameters: N/A
-        Output parameters: N/A
-        Returns: N/A
-        Preconditions: None
-        Postconditions: The player can move downwards.
-    */
-    void moveDown(void);
-
-    /*
         Function: moveRight()
         Author: Alex Carbajal
         Date Created: 04/22/2021
@@ -86,4 +61,6 @@ private:
         Postconditions: The player can move right.
     */
     void moveRight(void);
+
+    void spawnLocation(void);
 };

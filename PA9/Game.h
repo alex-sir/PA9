@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <time.h>
 
 #include <SFML\Graphics.hpp>
 #include <SFML\Audio.hpp>
@@ -81,6 +83,18 @@ private:
     */
     void loadMenu(void);
 
+    /*
+        Function: loadPlay()
+        Author: Alex Carbajal
+        Date Created: 04/26/2021
+        Date Last Modified: 04/26/2021
+        Description: Loads the assets for the game.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The assets for the game are loaded.
+    */
     void loadPlay(void);
 
     /*
@@ -116,15 +130,15 @@ private:
         Function: drawBackground()
         Author: Alex Carbajal
         Date Created: 04/24/2021
-        Date Last Modified: 04/24/2021
+        Date Last Modified: 04/27/2021
         Description: Draws the background for the current menu.
         Input parameters: N/A
-        Output parameters: N/A
+        Output parameters: sf::Sprite& background
         Returns: N/A
         Preconditions: None
         Postconditions: The background for the current menu gets draw.
     */
-    void drawBackground(void);
+    void drawBackground(sf::Sprite& background);
 
     /*
         Function: drawRectangleArtMainMenu()
@@ -170,5 +184,17 @@ private:
     */
     void selectMainMenuOption(void);
 
+    /*
+        Function: drawLanes()
+        Author: Alex Carbajal
+        Date Created: 04/26/2021
+        Date Last Modified: 04/26/2021
+        Description: Draws the lanes for the game.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The lanes for the game are drawn.
+`   */
     void drawLanes(void);
 };
