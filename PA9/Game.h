@@ -185,6 +185,20 @@ private:
     void selectMainMenuOption(void);
 
     /*
+        Function: drawScore()
+        Author: Alex Carbajal
+        Date Created: 04/27/2021
+        Date Last Modified: 04/27/2021
+        Description: Draws the score in the game.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The score is drawn in the game.
+    */
+    void drawScore(void);
+
+    /*
         Function: drawLanes()
         Author: Alex Carbajal
         Date Created: 04/26/2021

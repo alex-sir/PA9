@@ -113,6 +113,7 @@ void Game::startGame(void)
     {
         gameWindow.clear();
         drawBackground(squareLanes.getBackground());
+        drawScore();
         drawPlayer();
         drawLanes();
         gameWindow.display();
@@ -166,7 +167,9 @@ void Game::loadMenu(void)
 */
 void Game::loadPlay(void)
 {
+    squareLanes.loadFont();
     squareLanes.loadBackground();
+    squareLanes.loadScore();
     squareLanes.loadLanes();
     squareLanes.loadMusic();
 }
@@ -348,6 +351,23 @@ void Game::selectMainMenuOption(void)
             delete currentMenu;
         }
     }
+}
+
+/*
+    Function: drawScore()
+    Author: Alex Carbajal
+    Date Created: 04/27/2021
+    Date Last Modified: 04/27/2021
+    Description: Draws the score in the game.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The score is drawn in the game.
+*/
+void Game::drawScore(void)
+{
+    gameWindow.draw(squareLanes.getScore());
 }
 
 /*

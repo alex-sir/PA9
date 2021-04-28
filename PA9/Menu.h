@@ -18,7 +18,6 @@
     Play
         PauseMenu
     Instructions
-    Credits
 */
 
 class Menu
@@ -62,7 +61,7 @@ public:
     virtual void loadRectangles(void) = 0;
     virtual void loadMarker(void) = 0;
 protected:
-    sf::Font fontRaleway; // The font to be used in the game
+    sf::Font fontRaleway; // The font to be used in the menu
     sf::Music music; // Music that will be playing when the user is in the menu
     sf::Sprite background;
     sf::Texture backgroundTexture;

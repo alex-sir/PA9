@@ -8,9 +8,22 @@
 
 #include "SquareLanes.h"
 
+SquareLanes::SquareLanes()
+{
+    numCoins = 0;
+    numSpikes = 0;
+    numScore = 0;
+    gameSpeed = 1.0;
+}
+
 sf::Sprite& SquareLanes::getBackground(void)
 {
     return background;
+}
+
+sf::Text& SquareLanes::getScore(void)
+{
+    return score;
 }
 
 std::vector<sf::RectangleShape>& SquareLanes::getLanes(void)
@@ -27,7 +40,12 @@ void SquareLanes::loadMusic(void)
 {
     music.openFromFile("Assets/Music/squareLanes.flac");
     music.setLoop(true);
-    music.play();
+    //music.play();
+}
+
+void SquareLanes::loadFont(void)
+{
+    fontRaleway.loadFromFile("Assets/RalewayFont/Raleway-Light.ttf");
 }
 
 void SquareLanes::loadLanes(void)
@@ -69,4 +87,13 @@ void SquareLanes::loadBackground(void)
     backgroundTexture.loadFromFile("Assets/Backgrounds/SquareLanesBackground.png");
     background.setTexture(backgroundTexture);
     background.setPosition(sf::Vector2f(0.0f, 0.0f));
+}
+
+void SquareLanes::loadScore(void)
+{
+    score.setFont(fontRaleway);
+    score.setString("Score: " + std::to_string(numScore));
+    score.setCharacterSize(40);
+    score.setFillColor(sf::Color::White);
+    score.setPosition(sf::Vector2f(1755.f, 5.f));
 }
