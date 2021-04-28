@@ -15,6 +15,8 @@ SquareLanes::SquareLanes()
     numScore = 0;
     gameSpeed = 1.0;
     spawnSpeed = 1.0;
+    spikeSpawnChance = 7;
+    coinSpawnChance = 3;
 }
 
 sf::Sprite& SquareLanes::getBackground(void)
@@ -37,11 +39,21 @@ Player& SquareLanes::getPlayer(void)
     return player;
 }
 
+std::vector<Spike>& SquareLanes::getSpikeSpawns(void)
+{
+    return spikeSpawns;
+}
+
+std::vector<Coin>& SquareLanes::getCoinSpawns(void)
+{
+    return coinSpawns;
+}
+
 void SquareLanes::loadMusic(void)
 {
     music.openFromFile("Assets/Music/squareLanes.flac");
     music.setLoop(true);
-    //music.play();
+    music.play();
 }
 
 void SquareLanes::loadFont(void)
@@ -70,8 +82,8 @@ void SquareLanes::loadLanes(void)
     Date Created: 04/26/2021
     Date Last Modified: 04/26/2021
     Description: Creates the divider for a lane.
-    Input parameters: N/A
-    Output parameters: N/A
+    Input parameters: float xPosition
+    Output parameters: sf::RectangleShape& line
     Returns: N/A
     Preconditions: None
     Postconditions: The divider for a lane is created.
@@ -99,11 +111,30 @@ void SquareLanes::loadScore(void)
     score.setPosition(sf::Vector2f(10.f, 5.f));
 }
 
+void SquareLanes::loadSpawns(void)
+{
+    chooseSpawns();
+    createSpawns();
+}
+
+/*
+    Function: chooseSpawns()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Randomly picks the spawns.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Spawns are randomly picked.
+*/
 void SquareLanes::chooseSpawns(void)
 {
     /* Spawn Chance
         Spike: 70%
         Coin: 30%
+        Can add powerup later
     */
 
     int spawnNum = 0;
@@ -114,15 +145,130 @@ void SquareLanes::chooseSpawns(void)
         spawnNum = rand() % 10 + 1; // 1 - 10
 
         // 70% chance of a spike spawning
-        if (spawnNum >= 1 && spawnNum <= 7)
+        // Max spikes is in 3 lanes, otherwise guaranteed game over
+        if ((spawnNum >= 1 && spawnNum <= spikeSpawnChance) && (numSpikes < 3))
         {
             spawn = "spike";
+            numSpikes++;
         }
         else // 30% chance of a coin spawning
         {
             spawn = "coin";
+            numCoins++;
         }
 
         laneSpawns[i] = spawn;
+    }
+}
+
+/*
+    Function: createSpawns()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Creates the spawn sprites.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The spawn sprites are created.
+*/
+void SquareLanes::createSpawns(void)
+{
+    // Go through the spawns
+    for (int i = 0; i < 4; ++i)
+    {
+        // Create a spike
+        if (laneSpawns[i] == "spike")
+        {
+            createSpike(i + 1);
+        }
+        else if (laneSpawns[i] == "coin") // Create a coin
+        {
+            createCoin(i + 1);
+        }
+    }
+}
+
+/*
+    Function: createSpike()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Creates a spike sprite.
+                 Adds it to the list of spike spawns.
+    Input parameters: int lane
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: A spike sprite is created and added to the
+                    list of spike spawns.
+*/
+void SquareLanes::createSpike(int lane)
+{
+    Spike spikeSpawn;
+
+    spikeSpawn.setSpawnLane(lane);
+    spikeSpawn.setPosition(sf::Vector2f(xSpawnLocation(lane), 0)); // Update y position later
+
+    spikeSpawns.push_back(spikeSpawn);
+}
+
+/*
+    Function: createCoin()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Creates a coin sprite.
+                 Adds it to the list of coin spawns.
+    Input parameters: int lane
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: A coin sprite is created and added to the
+                    list of coin spawns.
+*/
+void SquareLanes::createCoin(int lane)
+{
+    Coin coinSpawn;
+
+    coinSpawn.setSpawnLane(lane);
+    coinSpawn.setPosition(sf::Vector2f(xSpawnLocation(lane), 0)); // Update y position later
+
+    coinSpawns.push_back(coinSpawn);
+}
+
+/*
+    Function: xSpawnLocation()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Determines the x position a spawn will be in based
+                 on the lane it will spawn in.
+    Input parameters: int lane
+    Output parameters: N/A
+    Returns: float indicating the x position for the spawn
+    Preconditions: None
+    Postconditions: The x position for a spawn based on its lane is returned.
+*/
+float SquareLanes::xSpawnLocation(int lane)
+{
+    // Select the lane for the spawn
+    switch (lane)
+    {
+    case 1: // First lane
+        return 240.f;
+        break;
+    case 2: // Second lane
+        return 720.f;
+        break;
+    case 3: // Third lane
+        return 1200.f;
+        break;
+    case 4: // Fourth lane
+        return 1680.f;
+        break;
+    default:
+        break;
     }
 }

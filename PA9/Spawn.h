@@ -13,7 +13,11 @@ class Spawn
 public:
     // Constructor
     Spawn();
-private:
+
+    // Setters
+    void setSpawnLane(int newSpawnLane);
+    void setSpeed(int newSpeed);
+protected:
     int spawnLane; // The lane in which the spawn appears
     double spawnChance; // A percentage
     double speed; // How fast it moves down the screen

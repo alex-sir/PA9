@@ -16,9 +16,12 @@ class Spike : public Spawn, public sf::CircleShape // Multiple inheritance
 {
 public:
     // Constructor
-    Spike() : Spawn(), sf::CircleShape(200.f, 3)
+    Spike() : Spawn(), sf::CircleShape(140.f, 3)
     {
-        setFillColor(sf::Color::Red);
+        spawnChance = 7; // 70% chance of spawning
+        setFillColor(sf::Color(220, 20, 60)); // Crimson red
+        setOrigin(sf::Vector2f(getRadius(), getRadius())); // Middle of triangle
+        setRotation(180); // Spike is facing down towards the player
     }
 private:
 };

@@ -113,8 +113,9 @@ void Game::startGame(void)
     {
         gameWindow.clear();
         drawBackground(squareLanes.getBackground());
-        drawScore();
         drawPlayer();
+        drawSpawns();
+        drawScore();
         drawLanes();
         gameWindow.display();
     }
@@ -171,6 +172,7 @@ void Game::loadPlay(void)
     squareLanes.loadBackground();
     squareLanes.loadScore();
     squareLanes.loadLanes();
+    squareLanes.loadSpawns();
     squareLanes.loadMusic();
 }
 
@@ -406,6 +408,33 @@ void Game::drawLanes(void)
 void Game::drawPlayer(void)
 {
     gameWindow.draw(squareLanes.getPlayer());
+}
+
+/*
+    Function: drawSpawns()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Draws the spawns in the game.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The spawns are drawn in the game.
+*/
+void Game::drawSpawns(void)
+{
+    // Spikes
+    for (int i = 0; i < squareLanes.getSpikeSpawns().size(); ++i)
+    {
+        gameWindow.draw(squareLanes.getSpikeSpawns()[i]);
+    }
+
+    // Coins
+    for (int i = 0; i < squareLanes.getCoinSpawns().size(); ++i)
+    {
+        gameWindow.draw(squareLanes.getCoinSpawns()[i]);
+    }
 }
 
 /*

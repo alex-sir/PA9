@@ -12,4 +12,15 @@ Spawn::Spawn()
 {
     spawnChance = 0.0;
     speed = 0.0;
+    spawnLane = 0;
+}
+
+void Spawn::setSpawnLane(int newSpawnLane)
+{
+    spawnLane = newSpawnLane;
+}
+
+void Spawn::setSpeed(int newSpeed)
+{
+    speed = newSpeed;
 }

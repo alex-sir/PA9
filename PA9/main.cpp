@@ -7,6 +7,7 @@
 */
 
 #include "Game.h"
+#include "Test.h"
 
 // If code is correct but program is still breaking, run the project in RELEASE mode (to the left of 'Local Window Debugger')
 
@@ -15,6 +16,7 @@ int main()
     srand((unsigned int)time(NULL)); // Random seed
 
     Game NSquare;
+    Test test;
 
     NSquare.runGame();
 

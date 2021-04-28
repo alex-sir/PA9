@@ -227,6 +227,20 @@ private:
     void drawPlayer(void);
 
     /*
+        Function: drawSpawns()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Draws the spawns in the game.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The spawns are drawn in the game.
+    */
+    void drawSpawns(void);
+
+    /*
         Function: runPlayProcesses()
         Author: Alex Carbajal
         Date Created: 04/27/2021

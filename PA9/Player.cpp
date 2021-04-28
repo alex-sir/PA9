@@ -10,7 +10,7 @@
 
 Player::Player()
 {
-    this->setSize(sf::Vector2f(200.0f, 200.0f));
+    this->setSize(sf::Vector2f(200.f, 200.f));
     this->setFillColor(sf::Color::Black);
     this->setOrigin(this->getSize().x / 2, this->getSize().y / 2);
     laneNumPosition = rand() % 4 + 1;
