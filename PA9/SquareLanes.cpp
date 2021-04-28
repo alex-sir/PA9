@@ -13,10 +13,11 @@ SquareLanes::SquareLanes()
     numCoins = 0;
     numSpikes = 0;
     numScore = 0;
-    gameSpeed = 1.0;
-    spawnSpeed = 1.0;
+    gameSpeed = 1.5;    
     spikeSpawnChance = 7;
     coinSpawnChance = 3;
+    createLaneSpawnSpeeds();
+    currentTime = gameClock.getElapsedTime();
 }
 
 sf::Sprite& SquareLanes::getBackground(void)
@@ -39,6 +40,11 @@ Player& SquareLanes::getPlayer(void)
     return player;
 }
 
+float SquareLanes::getGameSpeed(void) const
+{
+    return gameSpeed;
+}
+
 std::vector<Spike>& SquareLanes::getSpikeSpawns(void)
 {
     return spikeSpawns;
@@ -47,6 +53,11 @@ std::vector<Spike>& SquareLanes::getSpikeSpawns(void)
 std::vector<Coin>& SquareLanes::getCoinSpawns(void)
 {
     return coinSpawns;
+}
+
+sf::Clock& SquareLanes::getGameClock(void)
+{
+    return gameClock;
 }
 
 void SquareLanes::loadMusic(void)
@@ -137,6 +148,12 @@ void SquareLanes::chooseSpawns(void)
         Can add powerup later
     */
 
+    /* Todo
+        Make the time interval for spawns semi-random and different for each lane
+        Use the height (y) of the player to make sure the player can switch lanes and the game doesn't become impossible
+            Minimum height in between new spawns in a lane
+    */
+
     int spawnNum = 0;
     std::string spawn = "";
 
@@ -209,7 +226,7 @@ void SquareLanes::createSpike(int lane)
     Spike spikeSpawn;
 
     spikeSpawn.setSpawnLane(lane);
-    spikeSpawn.setPosition(sf::Vector2f(xSpawnLocation(lane), 0)); // Update y position later
+    spikeSpawn.setPosition(sf::Vector2f(xSpawnLocation(lane), -spikeSpawn.getRadius()));
 
     spikeSpawns.push_back(spikeSpawn);
 }
@@ -233,7 +250,7 @@ void SquareLanes::createCoin(int lane)
     Coin coinSpawn;
 
     coinSpawn.setSpawnLane(lane);
-    coinSpawn.setPosition(sf::Vector2f(xSpawnLocation(lane), 0)); // Update y position later
+    coinSpawn.setPosition(sf::Vector2f(xSpawnLocation(lane), -coinSpawn.getRadius()));
 
     coinSpawns.push_back(coinSpawn);
 }
@@ -269,6 +286,44 @@ float SquareLanes::xSpawnLocation(int lane)
         return 1680.f;
         break;
     default:
+        return 0.f;
         break;
     }
+}
+
+/*
+    Function: createLaneSpawnSpeeds()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Creates the spawn speeds for the 4 lanes.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Each of the 4 lanes have a spawn speed created.
+*/
+void SquareLanes::createLaneSpawnSpeeds(void)
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        laneSpawnSpeeds[i] = 0.f;
+    }
+}
+
+/*
+    Function: increaseGameSpeed()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Increases the downward movement of spawns.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The downward movement of spawns increases.
+*/
+void SquareLanes::increaseGameSpeed(void)
+{
+    gameSpeed += 0.1;
 }

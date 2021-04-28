@@ -16,7 +16,7 @@ class Spike : public Spawn, public sf::CircleShape // Multiple inheritance
 {
 public:
     // Constructor
-    Spike() : Spawn(), sf::CircleShape(140.f, 3)
+    Spike() : Spawn(), sf::CircleShape(130.f, 3)
     {
         spawnChance = 7; // 70% chance of spawning
         setFillColor(sf::Color(220, 20, 60)); // Crimson red

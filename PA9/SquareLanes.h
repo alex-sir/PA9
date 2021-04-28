@@ -29,8 +29,10 @@ public:
     sf::Text& getScore(void);
     std::vector<sf::RectangleShape>& getLanes(void);
     Player& getPlayer(void);
+    float getGameSpeed(void) const;
     std::vector<Spike>& getSpikeSpawns(void);
     std::vector<Coin>& getCoinSpawns(void);
+    sf::Clock& getGameClock(void);
 
     void loadMusic(void);
 
@@ -43,6 +45,20 @@ public:
     void loadScore(void);
 
     void loadSpawns(void);
+
+    /*
+        Function: increaseGameSpeed()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Increases the downward movement of spawns.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The downward movement of spawns increases.
+    */
+    void increaseGameSpeed(void);
 private:
     Player player;
     sf::Texture backgroundTexture;
@@ -54,13 +70,15 @@ private:
     int numCoins; // Number of coins on the screen
     int numSpikes; // Max of 3 spikes on screen
     int numScore; // Total score the user has in the game
-    double gameSpeed; // How fast the spawns are moving down (all spawns have the same speed)
-    double spawnSpeed; // How frequently spawns spawn. Is correlated to gameSpeed
+    float gameSpeed; // How fast the spawns are moving down (all spawns have the same speed)
     double spikeSpawnChance;
     double coinSpawnChance;
     std::string laneSpawns[4]; // The spawn at each of the 4 lanes
+    double laneSpawnSpeeds[4]; // Semi-random spawn speeds for each lane. Speeds increase with time
     std::vector<Spike> spikeSpawns;
     std::vector<Coin> coinSpawns;
+    sf::Clock gameClock; // Measures the time in the game
+    sf::Time currentTime; // The current time in the game clock
 
     /*
         Function: makeLane()
@@ -150,4 +168,18 @@ private:
         Postconditions: The x position for a spawn based on its lane is returned.
     */
     float xSpawnLocation(int lane);
+
+    /*
+        Function: createLaneSpawnSpeeds()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Creates the spawn speeds for the 4 lanes.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: Each of the 4 lanes have a spawn speed created.
+    */
+    void createLaneSpawnSpeeds(void);
 };

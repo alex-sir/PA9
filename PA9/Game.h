@@ -54,6 +54,7 @@ private:
     sf::SoundBuffer beepUp;
     sf::SoundBuffer beepDown;
     sf::SoundBuffer beepSelect;
+    sf::Clock restartGameSpeedCheck;
 
     /*
         Function: startGame()
@@ -253,4 +254,19 @@ private:
         Postconditions: Processes relating to playing the game run.
     */
     void runPlayProcesses(void);
+
+    /*
+        Function: checkUpdateGameSpeed()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Checks if the speed of the game should be increased.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: A check is performed to see if the game speed should
+                        be increased.
+    */
+    void checkUpdateGameSpeed(void);
 };

@@ -113,6 +113,7 @@ void Game::startGame(void)
     {
         gameWindow.clear();
         drawBackground(squareLanes.getBackground());
+        checkUpdateGameSpeed();
         drawPlayer();
         drawSpawns();
         drawScore();
@@ -174,6 +175,7 @@ void Game::loadPlay(void)
     squareLanes.loadLanes();
     squareLanes.loadSpawns();
     squareLanes.loadMusic();
+    squareLanes.getGameClock().restart();
 }
 
 /*
@@ -428,12 +430,14 @@ void Game::drawSpawns(void)
     for (int i = 0; i < squareLanes.getSpikeSpawns().size(); ++i)
     {
         gameWindow.draw(squareLanes.getSpikeSpawns()[i]);
+        squareLanes.getSpikeSpawns()[i].move(0.f, squareLanes.getGameSpeed());
     }
 
     // Coins
     for (int i = 0; i < squareLanes.getCoinSpawns().size(); ++i)
     {
         gameWindow.draw(squareLanes.getCoinSpawns()[i]);
+        squareLanes.getCoinSpawns()[i].move(0.f, squareLanes.getGameSpeed());
     }
 }
 
@@ -461,6 +465,40 @@ void Game::runPlayProcesses(void)
         if (event.key.code == sf::Keyboard::D)
         {
             squareLanes.getPlayer().moveRight();
+        }
+    }
+}
+
+/*
+    Function: checkUpdateGameSpeed()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Checks if the speed of the game should be increased.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: A check is performed to see if the game speed should
+                    be increased.
+*/
+void Game::checkUpdateGameSpeed(void)
+{
+    /* Sources
+        static_cast: https://www.geeksforgeeks.org/static_cast-in-c-type-casting-operators/
+    */
+
+    float secondsElapsedGame = squareLanes.getGameClock().getElapsedTime().asSeconds();
+    float secondsElapsedRestart = restartGameSpeedCheck.getElapsedTime().asSeconds();
+    int increaseInterval = 10;
+
+    // Increase game speed every 10 seconds
+    if ((static_cast<int>(secondsElapsedRestart) % 1 == 0) && (secondsElapsedRestart >= 1))
+    {
+        if (((static_cast<int>(secondsElapsedGame)) % increaseInterval == 0) && (secondsElapsedGame > 1))
+        {
+            squareLanes.increaseGameSpeed();
+            restartGameSpeedCheck.restart();
         }
     }
 }
