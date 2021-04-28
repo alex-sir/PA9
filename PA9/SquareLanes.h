@@ -9,6 +9,7 @@
 #pragma once
 
 #include <stdlib.h>
+#include <string>
 
 #include <SFML\Graphics.hpp>
 #include <SFML\Audio.hpp>
@@ -48,6 +49,8 @@ private:
     int numSpikes; // Max of 3 spikes on screen
     int numScore; // Total score the user has in the game
     double gameSpeed; // How fast the spawns are moving down (all spawns have the same speed)
+    double spawnSpeed; // How frequently spawns spawn. Is correlated to gameSpeed
+    std::string laneSpawns[4]; // The spawn at each of the 4 lanes
 
     /*
         Function: makeLane()
@@ -62,4 +65,6 @@ private:
         Postconditions: The divider for a lane is created.
     */
     void makeLane(sf::RectangleShape& line, float xPosition);
+
+    void chooseSpawns(void);
 };

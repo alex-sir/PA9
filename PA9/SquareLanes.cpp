@@ -14,6 +14,7 @@ SquareLanes::SquareLanes()
     numSpikes = 0;
     numScore = 0;
     gameSpeed = 1.0;
+    spawnSpeed = 1.0;
 }
 
 sf::Sprite& SquareLanes::getBackground(void)
@@ -95,5 +96,33 @@ void SquareLanes::loadScore(void)
     score.setString("Score: " + std::to_string(numScore));
     score.setCharacterSize(40);
     score.setFillColor(sf::Color::White);
-    score.setPosition(sf::Vector2f(1755.f, 5.f));
+    score.setPosition(sf::Vector2f(10.f, 5.f));
+}
+
+void SquareLanes::chooseSpawns(void)
+{
+    /* Spawn Chance
+        Spike: 70%
+        Coin: 30%
+    */
+
+    int spawnNum = 0;
+    std::string spawn = "";
+
+    for (int i = 0; i < 4; ++i)
+    {
+        spawnNum = rand() % 10 + 1; // 1 - 10
+
+        // 70% chance of a spike spawning
+        if (spawnNum >= 1 && spawnNum <= 7)
+        {
+            spawn = "spike";
+        }
+        else // 30% chance of a coin spawning
+        {
+            spawn = "coin";
+        }
+
+        laneSpawns[i] = spawn;
+    }
 }

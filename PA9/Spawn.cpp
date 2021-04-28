@@ -8,3 +8,8 @@
 
 #include "Spawn.h"
 
+Spawn::Spawn()
+{
+    spawnChance = 0.0;
+    speed = 0.0;
+}

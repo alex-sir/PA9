@@ -11,8 +11,10 @@
 class Spawn
 {
 public:
-
+    // Constructor
+    Spawn();
 private:
-    double spawnTime;
-    double speed;
+    int spawnLane; // The lane in which the spawn appears
+    double spawnChance; // A percentage
+    double speed; // How fast it moves down the screen
 };

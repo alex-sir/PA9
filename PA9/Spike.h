@@ -8,9 +8,17 @@
 
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 #include "Spawn.h"
 
-class Spike : public Spawn
+class Spike : public Spawn, public sf::CircleShape // Multiple inheritance
 {
-
+public:
+    // Constructor
+    Spike() : Spawn(), sf::CircleShape(200.f, 3)
+    {
+        setFillColor(sf::Color::Red);
+    }
+private:
 };
