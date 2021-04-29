@@ -37,6 +37,7 @@ public:
     int getMarkerPosition(void);
     int getMinMarkerPosition(void);
     int getMaxMarkerPosition(void);
+    std::vector<sf::Sprite>& getMiscAssets(void);
 
     // Setters
     void setMarkerPosition(int newMarkerPosition);
@@ -60,6 +61,7 @@ public:
     virtual void loadText(void) = 0;
     virtual void loadRectangles(void) = 0;
     virtual void loadMarker(void) = 0;
+    virtual void loadMiscAssets(void) = 0;
 protected:
     sf::Font fontRaleway; // The font to be used in the menu
     sf::Music music; // Music that will be playing when the user is in the menu
@@ -67,7 +69,8 @@ protected:
     sf::Texture backgroundTexture;
     std::vector<sf::Text> menuText; // Dynamic array containing all the text for a menu
     std::vector<sf::RectangleShape> menuRectangles;
-    sf::RectangleShape marker;
+    sf::RectangleShape marker; // The marker present on the main menu to select an option
+    std::vector<sf::Sprite> miscAssets; // Any assets that don't fit other lists of assets
     int markerPosition;
     int minMarkerPosition;
     int maxMarkerPosition;

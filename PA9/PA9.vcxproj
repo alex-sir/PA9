@@ -145,7 +145,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Instructions.cpp" />
     <ClCompile Include="main.cpp" />
@@ -153,7 +152,6 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Spawn.cpp" />
-    <ClCompile Include="Spike.cpp" />
     <ClCompile Include="SquareLanes.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>

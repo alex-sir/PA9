@@ -56,6 +56,11 @@ int Menu::getMaxMarkerPosition(void)
     return maxMarkerPosition;
 }
 
+std::vector<sf::Sprite>& Menu::getMiscAssets(void)
+{
+    return miscAssets;
+}
+
 void Menu::setMarkerPosition(int newMarkerPosition)
 {
     markerPosition = newMarkerPosition;

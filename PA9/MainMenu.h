@@ -23,6 +23,7 @@ public:
 	void loadText(void);
 	void loadRectangles(void);
 	void loadMarker(void);
+	void loadMiscAssets(void);
 private:
 	sf::Text gameTitle;
 	sf::Text play;
@@ -32,6 +33,10 @@ private:
 	sf::RectangleShape r2;
 	sf::RectangleShape r3;
 	sf::RectangleShape r4;
+	sf::Sprite controlsWASD;
+	sf::Texture controlsWASDTexture;
+	sf::Sprite controlsEnter;
+	sf::Texture controlsEnterTexture;
 
 	/*
 		Function: makeGameTitle()

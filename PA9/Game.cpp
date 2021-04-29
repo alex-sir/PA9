@@ -102,6 +102,7 @@ void Game::playGame(void)
             drawBackground(currentMenu->getBackground());
             drawMenuText();
             drawRectangleArtMainMenu();
+            drawMiscAssets();
             gameWindow.draw(currentMenu->getMarker());
             gameWindow.display();
         }
@@ -168,6 +169,7 @@ void Game::loadMenu(void)
         currentMenu->loadBackground();
         currentMenu->loadRectangles();
         currentMenu->loadMarker();
+        currentMenu->loadMiscAssets();
     }
     else if (menuName == "instructions")
     {
@@ -280,6 +282,27 @@ void Game::drawRectangleArtMainMenu(void)
     {
         currentMenu->getMenuRectangles()[i].rotate(0.05f);
         gameWindow.draw(currentMenu->getMenuRectangles()[i]);
+    }
+}
+
+/*
+    Function: drawMiscAssets()
+    Author: Alex Carbajal
+    Date Created: 04/29/2021
+    Date Last Modified: 04/29/2021
+    Description: Draws miscellaneous assets on a menu.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Miscellaneous assets are drawn on a menu.
+*/
+void Game::drawMiscAssets(void)
+{
+    // Draw all the misc assets
+    for (int i = 0; i < currentMenu->getMiscAssets().size(); ++i)
+    {
+        gameWindow.draw(currentMenu->getMiscAssets()[i]);
     }
 }
 

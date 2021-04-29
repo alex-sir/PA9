@@ -160,6 +160,20 @@ private:
     void drawRectangleArtMainMenu(void);
 
     /*
+        Function: drawMiscAssets()
+        Author: Alex Carbajal
+        Date Created: 04/29/2021
+        Date Last Modified: 04/29/2021
+        Description: Draws miscellaneous assets on a menu.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: Miscellaneous assets are drawn on a menu.
+    */
+    void drawMiscAssets(void);
+
+    /*
         Function: markerMovementMainMenu()
         Author: Alex Carbajal
         Date Created: 04/25/2021

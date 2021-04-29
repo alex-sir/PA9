@@ -212,3 +212,19 @@ void MainMenu::makeMarker(void)
     marker.setOutlineColor(sf::Color(255, 165, 0)); // Orange
     marker.setRotation(45);
 }
+
+void MainMenu::loadMiscAssets(void)
+{
+    // WASD
+    controlsWASDTexture.loadFromFile("Assets/Misc/WASD.png");
+    controlsWASD.setTexture(controlsWASDTexture);
+    controlsWASD.setPosition(sf::Vector2f(0.0f, 0.0f));
+
+    // Enter
+    controlsEnterTexture.loadFromFile("Assets/Misc/Enter.png");
+    controlsEnter.setTexture(controlsEnterTexture);
+    controlsEnter.setPosition(sf::Vector2f(0.0f, 0.0f));
+
+    miscAssets.push_back(controlsWASD);
+    miscAssets.push_back(controlsEnter);
+}
