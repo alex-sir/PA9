@@ -13,10 +13,11 @@ SquareLanes::SquareLanes()
     numCoins = 0;
     numSpikes = 0;
     numScore = 0;
-    gameSpeed = 1.5;    
+    gameSpeed = 1.5;
+    maxSpeed = 10.0;
     spikeSpawnChance = 7;
     coinSpawnChance = 3;
-    createLaneSpawnSpeeds();
+    createRowSpawnSpeed();
     currentTime = gameClock.getElapsedTime();
 }
 
@@ -45,6 +46,11 @@ float SquareLanes::getGameSpeed(void) const
     return gameSpeed;
 }
 
+float SquareLanes::getMaxSpeed(void) const
+{
+    return maxSpeed;
+}
+
 std::vector<Spike>& SquareLanes::getSpikeSpawns(void)
 {
     return spikeSpawns;
@@ -58,6 +64,21 @@ std::vector<Coin>& SquareLanes::getCoinSpawns(void)
 sf::Clock& SquareLanes::getGameClock(void)
 {
     return gameClock;
+}
+
+float SquareLanes::getRowSpawnSpeed(void)
+{
+    return rowSpawnSpeed;
+}
+
+void SquareLanes::setNumSpikes(int newNumSpikes)
+{
+    numSpikes = newNumSpikes;
+}
+
+void SquareLanes::setNumCoins(int newNumCoins)
+{
+    numCoins = newNumCoins;
 }
 
 void SquareLanes::loadMusic(void)
@@ -292,22 +313,42 @@ float SquareLanes::xSpawnLocation(int lane)
 }
 
 /*
-    Function: createLaneSpawnSpeeds()
+    Function: createRowSpawnSpeed()
     Author: Alex Carbajal
     Date Created: 04/28/2021
     Date Last Modified: 04/28/2021
-    Description: Creates the spawn speeds for the 4 lanes.
+    Description: Creates the spawn speed for the spawns in a row.
     Input parameters: N/A
     Output parameters: N/A
     Returns: N/A
     Preconditions: None
-    Postconditions: Each of the 4 lanes have a spawn speed created.
+    Postconditions: A row has a spawn speed created for it.
 */
-void SquareLanes::createLaneSpawnSpeeds(void)
+void SquareLanes::createRowSpawnSpeed(void)
 {
-    for (int i = 0; i < 4; ++i)
+    /*
+        gameSpeed 1: 3.5 seconds
+        gameSpeed 1.5: 2.5 seconds
+        gameSpeed 2: 1.65 seconds
+        gameSpeed 3: 1.35 seconds
+        gameSpeed 4: 0.9 seconds
+    */
+
+    if (gameSpeed >= 1.5 && gameSpeed < 2) // Easy
     {
-        laneSpawnSpeeds[i] = 0.f;
+        rowSpawnSpeed = 2.5;
+    }
+    else if (gameSpeed >= 2 && gameSpeed < 3) // Medium
+    {
+        rowSpawnSpeed = 1.65;
+    }
+    else if (gameSpeed >= 3 && gameSpeed < 4) // Hard
+    {
+        rowSpawnSpeed = 1.35;
+    }
+    else if (gameSpeed >= 4) // Extreme
+    {
+        rowSpawnSpeed = 0.9;
     }
 }
 
@@ -325,5 +366,5 @@ void SquareLanes::createLaneSpawnSpeeds(void)
 */
 void SquareLanes::increaseGameSpeed(void)
 {
-    gameSpeed += 0.1;
+    gameSpeed += 0.2f;
 }

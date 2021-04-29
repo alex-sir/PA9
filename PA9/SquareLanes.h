@@ -30,9 +30,15 @@ public:
     std::vector<sf::RectangleShape>& getLanes(void);
     Player& getPlayer(void);
     float getGameSpeed(void) const;
+    float getMaxSpeed(void) const;
     std::vector<Spike>& getSpikeSpawns(void);
     std::vector<Coin>& getCoinSpawns(void);
     sf::Clock& getGameClock(void);
+    float getRowSpawnSpeed(void);
+
+    // Setters
+    void setNumSpikes(int newNumSpikes);
+    void setNumCoins(int newNumCoins);
 
     void loadMusic(void);
 
@@ -59,6 +65,20 @@ public:
         Postconditions: The downward movement of spawns increases.
     */
     void increaseGameSpeed(void);
+
+    /*
+        Function: createRowSpawnSpeed()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Creates the spawn speed for the spawns in a row.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: A row has a spawn speed created for it.
+    */
+    void createRowSpawnSpeed(void);
 private:
     Player player;
     sf::Texture backgroundTexture;
@@ -71,10 +91,11 @@ private:
     int numSpikes; // Max of 3 spikes on screen
     int numScore; // Total score the user has in the game
     float gameSpeed; // How fast the spawns are moving down (all spawns have the same speed)
+    float maxSpeed; // The maximum speed the game can run at
     double spikeSpawnChance;
     double coinSpawnChance;
     std::string laneSpawns[4]; // The spawn at each of the 4 lanes
-    double laneSpawnSpeeds[4]; // Semi-random spawn speeds for each lane. Speeds increase with time
+    float rowSpawnSpeed; // The spawn speed for the spawns
     std::vector<Spike> spikeSpawns;
     std::vector<Coin> coinSpawns;
     sf::Clock gameClock; // Measures the time in the game
@@ -168,18 +189,4 @@ private:
         Postconditions: The x position for a spawn based on its lane is returned.
     */
     float xSpawnLocation(int lane);
-
-    /*
-        Function: createLaneSpawnSpeeds()
-        Author: Alex Carbajal
-        Date Created: 04/28/2021
-        Date Last Modified: 04/28/2021
-        Description: Creates the spawn speeds for the 4 lanes.
-        Input parameters: N/A
-        Output parameters: N/A
-        Returns: N/A
-        Preconditions: None
-        Postconditions: Each of the 4 lanes have a spawn speed created.
-    */
-    void createLaneSpawnSpeeds(void);
 };

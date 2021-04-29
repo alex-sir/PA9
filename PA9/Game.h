@@ -55,6 +55,7 @@ private:
     sf::SoundBuffer beepDown;
     sf::SoundBuffer beepSelect;
     sf::Clock restartGameSpeedCheck;
+    sf::Clock lastSpawn;
 
     /*
         Function: startGame()
@@ -269,4 +270,34 @@ private:
                         be increased.
     */
     void checkUpdateGameSpeed(void);
+
+    /*
+        Function: checkRemoveSpawns()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Checks if the spawns should be removed from the screen.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: Checks are performed to see if spawns should be removed
+                        from the screen.
+    */
+    void checkRemoveSpawns(void);
+
+    /*
+        Function: checkNewSpawns()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Checks if a new row of spawns should be created.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: A check is performed to see if a new row of
+                        spawns should be created.
+    */
+    void checkNewSpawns(void);
 };

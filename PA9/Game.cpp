@@ -114,6 +114,8 @@ void Game::startGame(void)
         gameWindow.clear();
         drawBackground(squareLanes.getBackground());
         checkUpdateGameSpeed();
+        checkRemoveSpawns();
+        checkNewSpawns();
         drawPlayer();
         drawSpawns();
         drawScore();
@@ -173,7 +175,6 @@ void Game::loadPlay(void)
     squareLanes.loadBackground();
     squareLanes.loadScore();
     squareLanes.loadLanes();
-    squareLanes.loadSpawns();
     squareLanes.loadMusic();
     squareLanes.getGameClock().restart();
 }
@@ -488,17 +489,89 @@ void Game::checkUpdateGameSpeed(void)
         static_cast: https://www.geeksforgeeks.org/static_cast-in-c-type-casting-operators/
     */
 
-    float secondsElapsedGame = squareLanes.getGameClock().getElapsedTime().asSeconds();
-    float secondsElapsedRestart = restartGameSpeedCheck.getElapsedTime().asSeconds();
-    int increaseInterval = 10;
-
-    // Increase game speed every 10 seconds
-    if ((static_cast<int>(secondsElapsedRestart) % 1 == 0) && (secondsElapsedRestart >= 1))
+    if (!(squareLanes.getGameSpeed() >= squareLanes.getMaxSpeed()))
     {
-        if (((static_cast<int>(secondsElapsedGame)) % increaseInterval == 0) && (secondsElapsedGame > 1))
+        float secondsElapsedGame = squareLanes.getGameClock().getElapsedTime().asSeconds();
+        float secondsElapsedRestart = restartGameSpeedCheck.getElapsedTime().asSeconds();
+        int increaseInterval = 5;
+
+        // Increase game speed every 5 seconds
+        if ((static_cast<int>(secondsElapsedRestart) % 1 == 0) && (secondsElapsedRestart >= 1))
         {
-            squareLanes.increaseGameSpeed();
-            restartGameSpeedCheck.restart();
+            if (((static_cast<int>(secondsElapsedGame)) % increaseInterval == 0) && (secondsElapsedGame > 1))
+            {
+                squareLanes.increaseGameSpeed();
+                squareLanes.createRowSpawnSpeed();
+                restartGameSpeedCheck.restart();
+            }
         }
+    }
+}
+
+/*
+    Function: checkRemoveSpawns()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Checks if the spawns should be removed from the screen.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: Checks are performed to see if spawns should be removed
+                    from the screen.
+*/
+void Game::checkRemoveSpawns(void)
+{
+    /* Sources
+        Erase element from vector: https://stackoverflow.com/questions/875103/how-do-i-erase-an-element-from-stdvector-by-index
+    */
+
+    // Spikes
+    for (int i = 0; i < squareLanes.getSpikeSpawns().size(); ++i)
+    {
+        // Remove the spawn once it reaches the bottom of the screen (should not be visible when removed)
+        if (squareLanes.getSpikeSpawns()[i].getPosition().y > 1080 + squareLanes.getSpikeSpawns()[i].getRadius())
+        {
+            squareLanes.getSpikeSpawns().erase(squareLanes.getSpikeSpawns().begin() + i);
+        }
+    }
+
+    // Coins
+    for (int i = 0; i < squareLanes.getCoinSpawns().size(); ++i)
+    {
+        // Remove the spawn once it reaches the bottom of the screen (should not be visible when removed)
+        if (squareLanes.getCoinSpawns()[i].getPosition().y > 1080 + squareLanes.getCoinSpawns()[i].getRadius())
+        {
+            squareLanes.getCoinSpawns().erase(squareLanes.getCoinSpawns().begin() + i);
+        }
+    }
+}
+
+/*
+    Function: checkNewSpawns()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Checks if a new row of spawns should be created.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: A check is performed to see if a new row of
+                    spawns should be created.
+*/
+void Game::checkNewSpawns(void)
+{
+    float secondsElapsedLastSpawn = lastSpawn.getElapsedTime().asSeconds();
+
+    // Check if a new row should spawn
+    if (squareLanes.getRowSpawnSpeed() < secondsElapsedLastSpawn)
+    {
+        squareLanes.setNumSpikes(0);
+        squareLanes.setNumCoins(0);
+        squareLanes.loadSpawns();
+
+        lastSpawn.restart();
     }
 }
