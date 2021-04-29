@@ -21,6 +21,11 @@ SquareLanes::SquareLanes()
     currentTime = gameClock.getElapsedTime();
 }
 
+SquareLanes::~SquareLanes()
+{
+    stopMusic();
+}
+
 sf::Sprite& SquareLanes::getBackground(void)
 {
     return background;
@@ -433,4 +438,10 @@ void SquareLanes::loadGameOver(void)
 
     // Setting game speed to 0
     gameSpeed = 0.f;
+}
+
+void SquareLanes::stopMusic(void)
+{
+    music.setLoop(false);
+    music.stop();
 }

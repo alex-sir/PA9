@@ -40,7 +40,7 @@ public:
         Postconditions: The game runs.
     */
     void runGame(void);
-private:
+protected:
     sf::RenderWindow gameWindow;
     sf::Event event;
     Menu* currentMenu;

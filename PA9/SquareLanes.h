@@ -21,8 +21,9 @@
 class SquareLanes
 {
 public:
-    // Constructor
+    // Constructor/Destructor
     SquareLanes();
+    ~SquareLanes();
 
     // Getters
     sf::Sprite& getBackground(void);
@@ -101,6 +102,8 @@ public:
     void createRowSpawnSpeed(void);
 
     void loadGameOver(void);
+
+    void stopMusic(void);
 private:
     Player player;
     sf::Texture backgroundTexture;

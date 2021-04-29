@@ -16,9 +16,12 @@ int main()
     srand((unsigned int)time(NULL)); // Random seed
 
     Game NSquare;
-    Test test;
 
     NSquare.runGame();
+
+    //Test test;
+
+    //test.positionOfMarker();
 
     return 0;
 }
