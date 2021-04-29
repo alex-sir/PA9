@@ -8,11 +8,23 @@
 
 #pragma once
 
-// MUST implement at least 5 test cases
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
+#include "Game.h"
+
+/*
+    Test marker position
+    Test isPlay
+    Test coin score
+    Test game over
+    Test player position
+*/
+
+// MUST implement 5 test cases
 class Test
 {
 public:
 
 private:
-
 };
