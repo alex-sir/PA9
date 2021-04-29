@@ -17,6 +17,12 @@ class Player : public sf::RectangleShape
 public:
     Player();
 
+    // Getters
+    int getHealth(void) const;
+
+    // Setters
+    void setHealth(int newHealth);
+
     /*
         Function: moveLeft()
         Author: Alex Carbajal

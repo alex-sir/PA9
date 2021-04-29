@@ -29,6 +29,7 @@ public:
     sf::Text& getScore(void);
     std::vector<sf::RectangleShape>& getLanes(void);
     Player& getPlayer(void);
+    int getNumScore(void) const;
     float getGameSpeed(void) const;
     float getMaxSpeed(void) const;
     std::vector<Spike>& getSpikeSpawns(void);
@@ -39,6 +40,7 @@ public:
     // Setters
     void setNumSpikes(int newNumSpikes);
     void setNumCoins(int newNumCoins);
+    void setNumScore(int newNumScore);
 
     void loadMusic(void);
 
@@ -49,6 +51,22 @@ public:
     void loadBackground(void);
 
     void loadScore(void);
+
+    /*
+        Function: updateScore()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Updates the score text to represent the player's
+                     current score.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The score text is updated to represent the player's
+                        current score.
+    */
+    void updateScore(void);
 
     void loadSpawns(void);
 

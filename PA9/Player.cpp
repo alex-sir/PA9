@@ -20,6 +20,16 @@ Player::Player()
     spawnLocation();
 }
 
+int Player::getHealth(void) const
+{
+    return health;
+}
+
+void Player::setHealth(int newHealth)
+{
+    health = newHealth;
+}
+
 /*
     Function: moveLeft()
     Author: Alex Carbajal

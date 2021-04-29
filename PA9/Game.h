@@ -51,25 +51,27 @@ private:
     bool isPlay; // Whether the user entered into play mode
     std::string menuName; // The menus name
     sf::Sound beep; // Blip sound in the menu
+    sf::Sound coinGet;
     sf::SoundBuffer beepUp;
     sf::SoundBuffer beepDown;
     sf::SoundBuffer beepSelect;
+    sf::SoundBuffer coin;
     sf::Clock restartGameSpeedCheck;
     sf::Clock lastSpawn;
 
     /*
-        Function: startGame()
+        Function: playGame()
         Author: Alex Carbajal
         Date Created: 04/23/2021
-        Date Last Modified: 04/23/2021
-        Description: Starts the game.
+        Date Last Modified: 04/28/2021
+        Description: Plays the game.
         Input parameters: N/A
         Output parameters: N/A
         Returns: N/A
         Preconditions: None
-        Postconditions: The game starts.
+        Postconditions: The game is plays.
     */
-    void startGame(void);
+    void playGame(void);
 
     /*
         Function: loadMenu()
@@ -300,4 +302,35 @@ private:
                         spawns should be created.
     */
     void checkNewSpawns(void);
+
+    /*
+        Function: checkCollision()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Checks if a collision with a spawn occured.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: A check is performed to see if a collision
+                        with a spawn occured.
+    */
+    void checkCollision(void);
+
+    /*
+        Function: checkGameOver()
+        Author: Alex Carbajal
+        Date Created: 04/28/2021
+        Date Last Modified: 04/28/2021
+        Description: Checks if the player has lost the game by
+                     losing all their health.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: A check is performed to see if the player has
+                        lost the game.
+    */
+    void checkGameOver(void);
 };

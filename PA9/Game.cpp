@@ -19,6 +19,7 @@ Game::Game()
     beepUp.loadFromFile("Assets/Sound/up.flac");
     beepDown.loadFromFile("Assets/Sound/down.flac");
     beepSelect.loadFromFile("Assets/Sound/select.flac");
+    coin.loadFromFile("Assets/Sound/coin.flac");
 }
 
 /*
@@ -48,7 +49,7 @@ void Game::runGame(void)
 
     while (gameWindow.isOpen())
     {
-        startGame();
+        playGame();
 
         while (gameWindow.pollEvent(event))
         {
@@ -65,18 +66,18 @@ void Game::runGame(void)
 }
 
 /*
-    Function: startGame()
+    Function: playGame()
     Author: Alex Carbajal
     Date Created: 04/23/2021
-    Date Last Modified: 04/23/2021
-    Description: Starts the game.
+    Date Last Modified: 04/28/2021
+    Description: Plays the game.
     Input parameters: N/A
     Output parameters: N/A
     Returns: N/A
     Preconditions: None
-    Postconditions: The game starts.
+    Postconditions: The game is plays.
 */
-void Game::startGame(void)
+void Game::playGame(void)
 {
     // Execute a menu change if there is a new menu to be displayed
     if (changingMenu)
@@ -120,6 +121,8 @@ void Game::startGame(void)
         drawSpawns();
         drawScore();
         drawLanes();
+        checkCollision();
+        checkGameOver();
         gameWindow.display();
     }
 }
@@ -573,5 +576,71 @@ void Game::checkNewSpawns(void)
         squareLanes.loadSpawns();
 
         lastSpawn.restart();
+    }
+}
+
+/*
+    Function: checkCollision()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Checks if a collision with a spawn occured.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: A check is performed to see if a collision
+                    with a spawn occured.
+*/
+void Game::checkCollision(void)
+{
+    // Check for collision with a spike
+    for (int i = 0; i < squareLanes.getSpikeSpawns().size(); ++i)
+    {
+        if (squareLanes.getPlayer().getGlobalBounds().intersects(squareLanes.getSpikeSpawns()[i].getGlobalBounds()))
+        {
+            // Reduce player health by 1
+            squareLanes.getPlayer().setHealth(squareLanes.getPlayer().getHealth() - 1);
+        }
+    }
+
+    // Check for collision with a coin
+    for (int i = 0; i < squareLanes.getCoinSpawns().size(); ++i)
+    {
+        if (squareLanes.getPlayer().getGlobalBounds().intersects(squareLanes.getCoinSpawns()[i].getGlobalBounds()))
+        {
+            // Update score
+            squareLanes.setNumScore(squareLanes.getNumScore() + 1);
+            squareLanes.updateScore();
+
+            // Play coin get sound
+            coinGet.setBuffer(coin);
+            coinGet.play();
+
+            // Remove coin from screen
+            squareLanes.getCoinSpawns().erase(squareLanes.getCoinSpawns().begin() + i);
+        }
+    }
+}
+
+/*
+    Function: checkGameOver()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Checks if the player has lost the game by
+                 losing all their health.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: A check is performed to see if the player has
+                    lost the game.
+*/
+void Game::checkGameOver(void)
+{
+    if (squareLanes.getPlayer().getHealth() <= 0)
+    {
+        std::cout << "Game Over" << std::endl;
     }
 }

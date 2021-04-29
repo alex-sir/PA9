@@ -41,6 +41,11 @@ Player& SquareLanes::getPlayer(void)
     return player;
 }
 
+int SquareLanes::getNumScore(void) const
+{
+    return numScore;
+}
+
 float SquareLanes::getGameSpeed(void) const
 {
     return gameSpeed;
@@ -79,6 +84,11 @@ void SquareLanes::setNumSpikes(int newNumSpikes)
 void SquareLanes::setNumCoins(int newNumCoins)
 {
     numCoins = newNumCoins;
+}
+
+void SquareLanes::setNumScore(int newNumScore)
+{
+    numScore = newNumScore;
 }
 
 void SquareLanes::loadMusic(void)
@@ -141,6 +151,25 @@ void SquareLanes::loadScore(void)
     score.setCharacterSize(40);
     score.setFillColor(sf::Color::White);
     score.setPosition(sf::Vector2f(10.f, 5.f));
+}
+
+/*
+    Function: updateScore()
+    Author: Alex Carbajal
+    Date Created: 04/28/2021
+    Date Last Modified: 04/28/2021
+    Description: Updates the score text to represent the player's
+                 current score.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The score text is updated to represent the player's
+                    current score.
+*/
+void SquareLanes::updateScore(void)
+{
+    score.setString("Score: " + std::to_string(numScore));
 }
 
 void SquareLanes::loadSpawns(void)
