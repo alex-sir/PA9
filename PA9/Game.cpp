@@ -15,6 +15,7 @@ Game::Game()
     changeToPlay = false;
     isMenu = true;
     isPlay = false;
+    isGameOver = false;
     menuName = "main";
     beepUp.loadFromFile("Assets/Sound/up.flac");
     beepDown.loadFromFile("Assets/Sound/down.flac");
@@ -112,18 +113,32 @@ void Game::playGame(void)
     }
     else if (isPlay) // Play the game
     {
-        gameWindow.clear();
-        drawBackground(squareLanes.getBackground());
-        checkUpdateGameSpeed();
-        checkRemoveSpawns();
-        checkNewSpawns();
-        drawPlayer();
-        drawSpawns();
-        drawScore();
-        drawLanes();
-        checkCollision();
-        checkGameOver();
-        gameWindow.display();
+        if (!isGameOver) // Game isn't over
+        {
+            gameWindow.clear();
+            drawBackground(squareLanes.getBackground());
+            checkUpdateGameSpeed();
+            checkRemoveSpawns();
+            checkNewSpawns();
+            drawPlayer();
+            drawSpawns();
+            drawScore();
+            drawLanes();
+            checkCollision();
+            checkGameOver();
+            gameWindow.display();
+        }
+        else // Game is over
+        {
+            gameWindow.clear();
+            drawBackground(squareLanes.getBackground());
+            drawPlayer();
+            drawSpawns();
+            drawScore();
+            drawLanes();
+            drawGameOver();
+            gameWindow.display();
+        }
     }
 }
 
@@ -459,16 +474,21 @@ void Game::drawSpawns(void)
 */
 void Game::runPlayProcesses(void)
 {
-    if (event.type == sf::Event::KeyPressed)
+    if (!isGameOver)
     {
-        if (event.key.code == sf::Keyboard::A)
+        if (event.type == sf::Event::KeyPressed)
         {
-            squareLanes.getPlayer().moveLeft();
-        }
+            // Move right
+            if (event.key.code == sf::Keyboard::A)
+            {
+                squareLanes.getPlayer().moveLeft();
+            }
 
-        if (event.key.code == sf::Keyboard::D)
-        {
-            squareLanes.getPlayer().moveRight();
+            // Move left
+            if (event.key.code == sf::Keyboard::D)
+            {
+                squareLanes.getPlayer().moveRight();
+            }
         }
     }
 }
@@ -601,6 +621,12 @@ void Game::checkCollision(void)
         {
             // Reduce player health by 1
             squareLanes.getPlayer().setHealth(squareLanes.getPlayer().getHealth() - 1);
+
+            // Remove the spike if the player still has some health and the game isn't over
+            if (!(squareLanes.getPlayer().getHealth() <= 0))
+            {
+                squareLanes.getSpikeSpawns().erase(squareLanes.getSpikeSpawns().begin() + i);
+            }
         }
     }
 
@@ -639,8 +665,30 @@ void Game::checkCollision(void)
 */
 void Game::checkGameOver(void)
 {
+    // Player has lost all health
     if (squareLanes.getPlayer().getHealth() <= 0)
     {
-        std::cout << "Game Over" << std::endl;
+        isGameOver = true;
+        squareLanes.loadGameOver();
+        squareLanes.getGameOver().setPosition(sf::Vector2f(gameWindow.getSize().x / 2.f,
+                                              gameWindow.getSize().y / 2.f));
     }
+}
+
+/*
+    Function: drawGameOver()
+    Author: Alex Carbajal
+    Date Created: 04/29/2021
+    Date Last Modified: 04/29/2021
+    Description: Draws the assets for the game over screen.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The assets for the game over screen are drawn.
+*/
+void Game::drawGameOver(void)
+{
+    gameWindow.draw(squareLanes.getGameOverBackground());
+    gameWindow.draw(squareLanes.getGameOver());
 }

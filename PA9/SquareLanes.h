@@ -36,6 +36,8 @@ public:
     std::vector<Coin>& getCoinSpawns(void);
     sf::Clock& getGameClock(void);
     float getRowSpawnSpeed(void);
+    sf::Text& getGameOver(void);
+    sf::Sprite& getGameOverBackground(void);
 
     // Setters
     void setNumSpikes(int newNumSpikes);
@@ -97,6 +99,8 @@ public:
         Postconditions: A row has a spawn speed created for it.
     */
     void createRowSpawnSpeed(void);
+
+    void loadGameOver(void);
 private:
     Player player;
     sf::Texture backgroundTexture;
@@ -118,6 +122,9 @@ private:
     std::vector<Coin> coinSpawns;
     sf::Clock gameClock; // Measures the time in the game
     sf::Time currentTime; // The current time in the game clock
+    sf::Text gameOver;
+    sf::Texture gameOverBackgroundTexture;
+    sf::Sprite gameOverBackground;
 
     /*
         Function: makeLane()

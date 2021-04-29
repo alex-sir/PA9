@@ -76,6 +76,16 @@ float SquareLanes::getRowSpawnSpeed(void)
     return rowSpawnSpeed;
 }
 
+sf::Text& SquareLanes::getGameOver(void)
+{
+    return gameOver;
+}
+
+sf::Sprite& SquareLanes::getGameOverBackground(void)
+{
+    return gameOverBackground;
+}
+
 void SquareLanes::setNumSpikes(int newNumSpikes)
 {
     numSpikes = newNumSpikes;
@@ -396,4 +406,31 @@ void SquareLanes::createRowSpawnSpeed(void)
 void SquareLanes::increaseGameSpeed(void)
 {
     gameSpeed += 0.2f;
+}
+
+void SquareLanes::loadGameOver(void)
+{
+    /* Sources
+        Centering text in SFML: https://en.sfml-dev.org/forums/index.php?topic=24161.0
+    */
+
+    // Lower volume
+    music.setVolume(25);
+
+    // Transparent background
+    gameOverBackgroundTexture.loadFromFile("Assets/Backgrounds/GameOverBackground.png");
+    gameOverBackground.setTexture(gameOverBackgroundTexture);
+    gameOverBackground.setColor(sf::Color(255, 255, 255, 150));
+    gameOverBackground.setPosition(sf::Vector2f(0.f, 0.f));
+
+    // Game Over text
+    gameOver.setFont(fontRaleway);
+    gameOver.setString("GAME OVER");
+    gameOver.setCharacterSize(170);
+    gameOver.setFillColor(sf::Color::White);
+    gameOver.setOrigin(sf::Vector2f(gameOver.getLocalBounds().left + gameOver.getLocalBounds().width / 2.0f,
+                       gameOver.getLocalBounds().top + gameOver.getLocalBounds().height / 2.0f));
+
+    // Setting game speed to 0
+    gameSpeed = 0.f;
 }

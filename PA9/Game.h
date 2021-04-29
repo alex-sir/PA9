@@ -49,6 +49,7 @@ private:
     bool changeToPlay; // Whether the game is in the process of changing to play mode
     bool isMenu;
     bool isPlay; // Whether the user entered into play mode
+    bool isGameOver; // Whether the player has lost or not
     std::string menuName; // The menus name
     sf::Sound beep; // Blip sound in the menu
     sf::Sound coinGet;
@@ -333,4 +334,18 @@ private:
                         lost the game.
     */
     void checkGameOver(void);
+
+    /*
+        Function: drawGameOver()
+        Author: Alex Carbajal
+        Date Created: 04/29/2021
+        Date Last Modified: 04/29/2021
+        Description: Draws the assets for the game over screen.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The assets for the game over screen are drawn.
+    */
+    void drawGameOver(void);
 };
