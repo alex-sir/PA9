@@ -1,5 +1,5 @@
 /*
-    Programmer: Alex Carbajal
+    Programmers: Alex Carbajal, Francesco Rachetto, Brendan Nelson
     Class: CptS 122, Spring 2021; Lab Section 03
     Programming Assignment: Programming Assignment 9
     Date: April 22, 2021
@@ -38,6 +38,8 @@ public:
     sf::Clock& getGameClock(void);
     float getRowSpawnSpeed(void);
     sf::Text& getGameOver(void);
+    sf::Text& getRestart(void);
+    sf::Text& getBackToMenu(void);
     sf::Sprite& getGameOverBackground(void);
 
     // Setters
@@ -103,6 +105,18 @@ public:
 
     void loadGameOver(void);
 
+    /*
+        Function: stopMusic()
+        Author: Alex Carbajal
+        Date Created: 04/29/2021
+        Date Last Modified: 04/29/2021
+        Description: Stops the music from playing in the game.
+        Input parameters: N/A
+        Output parameters: N/A
+        Returns: N/A
+        Preconditions: None
+        Postconditions: The music in the game stops playing.
+    */
     void stopMusic(void);
 private:
     Player player;
@@ -126,6 +140,8 @@ private:
     sf::Clock gameClock; // Measures the time in the game
     sf::Time currentTime; // The current time in the game clock
     sf::Text gameOver;
+    sf::Text restart;
+    sf::Text backToMenu;
     sf::Texture gameOverBackgroundTexture;
     sf::Sprite gameOverBackground;
 

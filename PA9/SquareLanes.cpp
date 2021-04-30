@@ -1,5 +1,5 @@
 /*
-    Programmer: Alex Carbajal
+    Programmers: Alex Carbajal, Francesco Rachetto, Brendan Nelson
     Class: CptS 122, Spring 2021; Lab Section 03
     Programming Assignment: Programming Assignment 9
     Date: April 22, 2021
@@ -84,6 +84,16 @@ float SquareLanes::getRowSpawnSpeed(void)
 sf::Text& SquareLanes::getGameOver(void)
 {
     return gameOver;
+}
+
+sf::Text& SquareLanes::getRestart(void)
+{
+    return restart;
+}
+
+sf::Text& SquareLanes::getBackToMenu(void)
+{
+    return backToMenu;
 }
 
 sf::Sprite& SquareLanes::getGameOverBackground(void)
@@ -436,10 +446,38 @@ void SquareLanes::loadGameOver(void)
     gameOver.setOrigin(sf::Vector2f(gameOver.getLocalBounds().left + gameOver.getLocalBounds().width / 2.0f,
                        gameOver.getLocalBounds().top + gameOver.getLocalBounds().height / 2.0f));
 
+    // Restart
+    /*restart.setFont(fontRaleway);
+    restart.setString("Restart");
+    restart.setCharacterSize(100);
+    restart.setFillColor(sf::Color::White);
+    restart.setOrigin(sf::Vector2f(restart.getLocalBounds().left + restart.getLocalBounds().width / 2.0f,
+                                   restart.getLocalBounds().top + restart.getLocalBounds().height / 2.0f));*/
+
+    // Menu
+    /*backToMenu.setFont(fontRaleway);
+    backToMenu.setString("Menu");
+    backToMenu.setCharacterSize(100);
+    backToMenu.setFillColor(sf::Color::White);
+    backToMenu.setOrigin(sf::Vector2f(backToMenu.getLocalBounds().left + backToMenu.getLocalBounds().width / 2.0f,
+                                      backToMenu.getLocalBounds().top + backToMenu.getLocalBounds().height / 2.0f));*/
+
     // Setting game speed to 0
     gameSpeed = 0.f;
 }
 
+/*
+    Function: stopMusic()
+    Author: Alex Carbajal
+    Date Created: 04/29/2021
+    Date Last Modified: 04/29/2021
+    Description: Stops the music from playing in the game.
+    Input parameters: N/A
+    Output parameters: N/A
+    Returns: N/A
+    Preconditions: None
+    Postconditions: The music in the game stops playing.
+*/
 void SquareLanes::stopMusic(void)
 {
     music.setLoop(false);

@@ -1,5 +1,5 @@
 /*
-    Programmer: Alex Carbajal
+    Programmers: Alex Carbajal, Francesco Rachetto, Brendan Nelson
     Class: CptS 122, Spring 2021; Lab Section 03
     Programming Assignment: Programming Assignment 9
     Date: April 22, 2021
@@ -32,7 +32,7 @@ void MainMenu::loadText(void)
 {
     makeGameTitle();
     makePlayText();
-    makeInstructionsText();
+    //makeInstructionsText();
     makeExitText();
 }
 
@@ -173,7 +173,7 @@ void MainMenu::makeExitText(void)
     exit.setString("Exit");
     exit.setCharacterSize(75);
     exit.setFillColor(sf::Color(220, 220, 220));
-    exit.setPosition(sf::Vector2f(50.0f, 340.0f));
+    exit.setPosition(sf::Vector2f(50.0f, 245.0f));
 
     // Adding the text to the list of texts
     menuText.push_back(exit);
@@ -185,7 +185,7 @@ void MainMenu::loadMarker(void)
 
     // Marker positions
     markerPosition = minMarkerPosition = 1;
-    maxMarkerPosition = 3;
+    maxMarkerPosition = 2;
 }
 
 /*

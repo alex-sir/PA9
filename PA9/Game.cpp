@@ -1,5 +1,5 @@
 /*
-    Programmer: Alex Carbajal
+    Programmers: Alex Carbajal, Francesco Rachetto, Brendan Nelson
     Class: CptS 122, Spring 2021; Lab Section 03
     Programming Assignment: Programming Assignment 9
     Date: April 22, 2021
@@ -379,11 +379,11 @@ void Game::selectMainMenuOption(void)
                 isMenu = false;
                 isPlay = true;
                 break;
-            case 2: // Instructions
-                changingMenu = true;
-                menuName = "instructions";
-                break;
-            case 3: // Exit
+            //case 2: // Instructions
+            //    changingMenu = true;
+            //    menuName = "instructions";
+            //    break;
+            case 2: // Exit
                 gameWindow.close();
                 break;
             default:
@@ -693,8 +693,20 @@ void Game::checkGameOver(void)
     {
         isGameOver = true;
         squareLanes.loadGameOver();
+
+        // Game Over
         squareLanes.getGameOver().setPosition(sf::Vector2f(gameWindow.getSize().x / 2.f,
                                               gameWindow.getSize().y / 2.f));
+
+        //float xPositionOptions = 250.f;
+
+        // Restart
+        /*squareLanes.getRestart().setPosition(sf::Vector2f(gameWindow.getSize().x / 2.f + xPositionOptions,
+                                             gameWindow.getSize().y / 2.f + 130.f));*/
+
+        // Menu
+        /*squareLanes.getBackToMenu().setPosition(sf::Vector2f(gameWindow.getSize().x / 2.f - xPositionOptions,
+                                                             gameWindow.getSize().y / 2.f + 130.f));*/
     }
 }
 
@@ -714,4 +726,6 @@ void Game::drawGameOver(void)
 {
     gameWindow.draw(squareLanes.getGameOverBackground());
     gameWindow.draw(squareLanes.getGameOver());
+    //gameWindow.draw(squareLanes.getRestart());
+    //gameWindow.draw(squareLanes.getBackToMenu());
 }
